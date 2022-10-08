@@ -1,0 +1,391 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DD033F0128EBB49B00E8F466 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD033F0028EBB49B00E8F466 /* AppDelegate.swift */; };
+		DD033F0528EBB49B00E8F466 /* GLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD033F0428EBB49B00E8F466 /* GLViewController.swift */; };
+		DD033F0A28EBB49D00E8F466 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD033F0928EBB49D00E8F466 /* Assets.xcassets */; };
+		DD033F0D28EBB49D00E8F466 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD033F0B28EBB49D00E8F466 /* LaunchScreen.storyboard */; };
+		DDAABDF828F1E80400A1B170 /* GLEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABDF728F1E80400A1B170 /* GLEffect.swift */; };
+		DDAABDFB28F1E9EC00A1B170 /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDAABDFA28F1E9EC00A1B170 /* SimpleVertex.glsl */; };
+		DDAABDFF28F1EA5100A1B170 /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDAABDFE28F1EA5100A1B170 /* SimpleFragment.glsl */; };
+		DDAABE0128F2132F00A1B170 /* GLVertexAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE0028F2132F00A1B170 /* GLVertexAttributes.swift */; };
+		DDAABE0328F22D9100A1B170 /* GLMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE0228F22D9100A1B170 /* GLMesh.swift */; };
+		DDAABE0528F2358900A1B170 /* GLRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE0428F2358900A1B170 /* GLRenderer.swift */; };
+		DDAABE0728F2395C00A1B170 /* GLShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE0628F2395C00A1B170 /* GLShader.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DD033EFD28EBB49B00E8F466 /* OpenGLExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD033F0028EBB49B00E8F466 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DD033F0428EBB49B00E8F466 /* GLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLViewController.swift; sourceTree = "<group>"; };
+		DD033F0928EBB49D00E8F466 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DD033F0C28EBB49D00E8F466 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DDAABDF728F1E80400A1B170 /* GLEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLEffect.swift; sourceTree = "<group>"; };
+		DDAABDFA28F1E9EC00A1B170 /* SimpleVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleVertex.glsl; sourceTree = "<group>"; };
+		DDAABDFE28F1EA5100A1B170 /* SimpleFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleFragment.glsl; sourceTree = "<group>"; };
+		DDAABE0028F2132F00A1B170 /* GLVertexAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLVertexAttributes.swift; sourceTree = "<group>"; };
+		DDAABE0228F22D9100A1B170 /* GLMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLMesh.swift; sourceTree = "<group>"; };
+		DDAABE0428F2358900A1B170 /* GLRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLRenderer.swift; sourceTree = "<group>"; };
+		DDAABE0628F2395C00A1B170 /* GLShader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLShader.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD033EFA28EBB49B00E8F466 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DD033EF428EBB49B00E8F466 = {
+			isa = PBXGroup;
+			children = (
+				DD033EFF28EBB49B00E8F466 /* OpenGLExample */,
+				DD033EFE28EBB49B00E8F466 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DD033EFE28EBB49B00E8F466 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD033EFD28EBB49B00E8F466 /* OpenGLExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DD033EFF28EBB49B00E8F466 /* OpenGLExample */ = {
+			isa = PBXGroup;
+			children = (
+				DDAABDF628F1E7C000A1B170 /* GLCore */,
+				DD033F0028EBB49B00E8F466 /* AppDelegate.swift */,
+				DD033F0428EBB49B00E8F466 /* GLViewController.swift */,
+				DD033F0928EBB49D00E8F466 /* Assets.xcassets */,
+				DD033F0B28EBB49D00E8F466 /* LaunchScreen.storyboard */,
+			);
+			path = OpenGLExample;
+			sourceTree = "<group>";
+		};
+		DDAABDF628F1E7C000A1B170 /* GLCore */ = {
+			isa = PBXGroup;
+			children = (
+				DDAABDF928F1E9BD00A1B170 /* Shaders */,
+				DDAABDF728F1E80400A1B170 /* GLEffect.swift */,
+				DDAABE0028F2132F00A1B170 /* GLVertexAttributes.swift */,
+				DDAABE0228F22D9100A1B170 /* GLMesh.swift */,
+				DDAABE0428F2358900A1B170 /* GLRenderer.swift */,
+			);
+			path = GLCore;
+			sourceTree = "<group>";
+		};
+		DDAABDF928F1E9BD00A1B170 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				DDAABDFA28F1E9EC00A1B170 /* SimpleVertex.glsl */,
+				DDAABDFE28F1EA5100A1B170 /* SimpleFragment.glsl */,
+				DDAABE0628F2395C00A1B170 /* GLShader.swift */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DD033EFC28EBB49B00E8F466 /* OpenGLExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD033F1128EBB49D00E8F466 /* Build configuration list for PBXNativeTarget "OpenGLExample" */;
+			buildPhases = (
+				DD033EF928EBB49B00E8F466 /* Sources */,
+				DD033EFA28EBB49B00E8F466 /* Frameworks */,
+				DD033EFB28EBB49B00E8F466 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenGLExample;
+			productName = OpenGLExample;
+			productReference = DD033EFD28EBB49B00E8F466 /* OpenGLExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DD033EF528EBB49B00E8F466 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					DD033EFC28EBB49B00E8F466 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+				};
+			};
+			buildConfigurationList = DD033EF828EBB49B00E8F466 /* Build configuration list for PBXProject "OpenGLExample" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DD033EF428EBB49B00E8F466;
+			productRefGroup = DD033EFE28EBB49B00E8F466 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DD033EFC28EBB49B00E8F466 /* OpenGLExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DD033EFB28EBB49B00E8F466 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD033F0D28EBB49D00E8F466 /* LaunchScreen.storyboard in Resources */,
+				DDAABDFF28F1EA5100A1B170 /* SimpleFragment.glsl in Resources */,
+				DD033F0A28EBB49D00E8F466 /* Assets.xcassets in Resources */,
+				DDAABDFB28F1E9EC00A1B170 /* SimpleVertex.glsl in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DD033EF928EBB49B00E8F466 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDAABE0728F2395C00A1B170 /* GLShader.swift in Sources */,
+				DDAABE0328F22D9100A1B170 /* GLMesh.swift in Sources */,
+				DDAABDF828F1E80400A1B170 /* GLEffect.swift in Sources */,
+				DD033F0528EBB49B00E8F466 /* GLViewController.swift in Sources */,
+				DDAABE0528F2358900A1B170 /* GLRenderer.swift in Sources */,
+				DD033F0128EBB49B00E8F466 /* AppDelegate.swift in Sources */,
+				DDAABE0128F2132F00A1B170 /* GLVertexAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DD033F0B28EBB49D00E8F466 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD033F0C28EBB49D00E8F466 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DD033F0F28EBB49D00E8F466 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"GLES_SILENCE_DEPRECATION=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DD033F1028EBB49D00E8F466 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "GLES_SILENCE_DEPRECATION=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DD033F1228EBB49D00E8F466 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G62NMGFRS3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = OGI.OpenGLExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DD033F1328EBB49D00E8F466 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G62NMGFRS3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = OGI.OpenGLExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DD033EF828EBB49B00E8F466 /* Build configuration list for PBXProject "OpenGLExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD033F0F28EBB49D00E8F466 /* Debug */,
+				DD033F1028EBB49D00E8F466 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD033F1128EBB49D00E8F466 /* Build configuration list for PBXNativeTarget "OpenGLExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD033F1228EBB49D00E8F466 /* Debug */,
+				DD033F1328EBB49D00E8F466 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DD033EF528EBB49B00E8F466 /* Project object */;
+}
