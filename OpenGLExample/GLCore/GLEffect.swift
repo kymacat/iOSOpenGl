@@ -64,7 +64,7 @@ class GLEffect {
     guard let shaderUrl = Bundle.main.url(forResource: name, withExtension: "glsl"),
           let shaderStr = try? String(contentsOf: shaderUrl, encoding: .utf8)
     else {
-      assertionFailure("Shader \(name) not found")
+      assertionFailure("Shader \(name).glsl not found")
       return 0
     }
 
@@ -78,7 +78,7 @@ class GLEffect {
     if success == GL_FALSE {
       let infoLog = UnsafeMutablePointer<GLchar>.allocate(capacity: 512)
       glGetShaderInfoLog(shader, 512, nil, &infoLog.pointee)
-      assertionFailure("compile error. \(String(cString: infoLog))")
+      assertionFailure("\(name).glsl compile error. \(String(cString: infoLog))")
     }
 
     return shader

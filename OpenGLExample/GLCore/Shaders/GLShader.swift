@@ -10,4 +10,8 @@ import Foundation
 enum GLShader: String {
   case simpleVertex = "SimpleVertex"
   case simpleFragment = "SimpleFragment"
+
+  case textureVertex = "TextureVertex"
+  case textureMixFragment = "TextureMixFragment"
+  case textureWithWaterEffect = "TextureWithWaterEffectFragment"
 }

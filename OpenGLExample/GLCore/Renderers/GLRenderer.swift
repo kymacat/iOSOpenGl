@@ -8,8 +8,8 @@
 import GLKit
 
 class GLRenderer: NSObject, GLKViewControllerDelegate {
-  private let effect: GLEffect
-  private let mesh: GLMesh
+  let effect: GLEffect
+  let mesh: GLMesh
 
   init(shader: GLEffect, mesh: GLMesh) {
     self.effect = shader
@@ -33,7 +33,7 @@ class GLRenderer: NSObject, GLKViewControllerDelegate {
       2,
       GLenum(GL_FLOAT),
       GLboolean(GL_FALSE),
-      GLsizei(5 * MemoryLayout<GLfloat>.stride),
+      GLsizei(7 * MemoryLayout<GLfloat>.stride),
       nil
     )
 
@@ -43,14 +43,14 @@ class GLRenderer: NSObject, GLKViewControllerDelegate {
       3,
       GLenum(GL_FLOAT),
       GLboolean(GL_FALSE),
-      GLsizei(5 * MemoryLayout<GLfloat>.stride),
+      GLsizei(7 * MemoryLayout<GLfloat>.stride),
       UnsafeRawPointer(bitPattern: 2 * MemoryLayout<GLfloat>.stride)
     )
 
     glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
 
 //    If you want to draw without indexes
-//    glDrawArrays(GLenum(GL_TRIANGLES), 0, 3)
+//    glDrawArrays(GLenum(GL_TRIANGLES), 0, GLsizei(mesh.vertices.count))
 
     glDisableVertexAttribArray(GLVertexAttributes.position.rawValue)
   }

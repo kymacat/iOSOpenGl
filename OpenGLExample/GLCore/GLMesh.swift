@@ -53,6 +53,7 @@ class GLMesh {
 extension GLMesh {
   static let triangle = GLMesh(
     vertices: [
+//     x    y    r    g    b
       0.0, 0.5, 1.0, 0.0, 0.0,
       0.5, -0.5, 0.0, 1.0, 0.0,
       -0.5, -0.5, 0.0, 0.0, 1.0
@@ -64,10 +65,25 @@ extension GLMesh {
 
   static let rectangle = GLMesh(
     vertices: [
+//     x    y    r    g    b
       -0.5, 0.5, 1.0, 0.0, 0.0,
        0.5, 0.5, 0.0, 1.0, 0.0,
        0.5, -0.5, 0.0, 0.0, 1.0,
        -0.5, -0.5, 1.0, 1.0, 1.0
+    ],
+    indexes: [
+      0, 1, 2,
+      2, 3, 0
+    ]
+  )
+
+  static let rectangleWithTexture = GLMesh(
+    vertices: [
+//      x    y  texX  texY
+      -0.5, 0.5, 0.0, 0.0,
+       0.5, 0.5, 1.0, 0.0,
+       0.5, -0.5, 1.0, 1.0,
+       -0.5, -0.5, 0.0, 1.0
     ],
     indexes: [
       0, 1, 2,

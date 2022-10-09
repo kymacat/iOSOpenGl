@@ -10,10 +10,7 @@ import GLKit
 
 class GLViewController: GLKViewController {
   private var context: EAGLContext?
-  private let renderer = GLRenderer(
-    shader: GLEffect(vertexShader: .simpleVertex, fragmentShader: .simpleFragment, attributes: [.position, .color]),
-    mesh: .triangle
-  )
+  private var renderer: GLRenderer = .textureWithWaterEffectRenderer
 
   override func viewDidLoad() {
     super.viewDidLoad()
