@@ -25,6 +25,7 @@
 		DDAABE1428F36C3D00A1B170 /* GLTextureRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE1328F36C3D00A1B170 /* GLTextureRenderer.swift */; };
 		DDAABE1628F36EA400A1B170 /* Renderers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE1528F36EA400A1B170 /* Renderers.swift */; };
 		DDAABE1828F3742100A1B170 /* TextureWithWaterEffectFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDAABE1728F3742100A1B170 /* TextureWithWaterEffectFragment.glsl */; };
+		DDD8AE9528F89050006C70C8 /* GLMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD8AE9428F89050006C70C8 /* GLMath.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		DDAABE1328F36C3D00A1B170 /* GLTextureRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLTextureRenderer.swift; sourceTree = "<group>"; };
 		DDAABE1528F36EA400A1B170 /* Renderers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderers.swift; sourceTree = "<group>"; };
 		DDAABE1728F3742100A1B170 /* TextureWithWaterEffectFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TextureWithWaterEffectFragment.glsl; sourceTree = "<group>"; };
+		DDD8AE9428F89050006C70C8 /* GLMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLMath.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		DDAABDF628F1E7C000A1B170 /* GLCore */ = {
 			isa = PBXGroup;
 			children = (
+				DDD8AE9328F89028006C70C8 /* GLMath */,
 				DDAABE1228F36C1700A1B170 /* Renderers */,
 				DDAABDF928F1E9BD00A1B170 /* Shaders */,
 				DDAABDF728F1E80400A1B170 /* GLEffect.swift */,
@@ -139,6 +142,14 @@
 				DDAABE1528F36EA400A1B170 /* Renderers.swift */,
 			);
 			path = Renderers;
+			sourceTree = "<group>";
+		};
+		DDD8AE9328F89028006C70C8 /* GLMath */ = {
+			isa = PBXGroup;
+			children = (
+				DDD8AE9428F89050006C70C8 /* GLMath.swift */,
+			);
+			path = GLMath;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +235,7 @@
 				DDAABE1628F36EA400A1B170 /* Renderers.swift in Sources */,
 				DDAABE0528F2358900A1B170 /* GLRenderer.swift in Sources */,
 				DD033F0128EBB49B00E8F466 /* AppDelegate.swift in Sources */,
+				DDD8AE9528F89050006C70C8 /* GLMath.swift in Sources */,
 				DDAABE1428F36C3D00A1B170 /* GLTextureRenderer.swift in Sources */,
 				DDAABE0F28F32FAD00A1B170 /* GLTexture.swift in Sources */,
 				DDAABE0128F2132F00A1B170 /* GLVertexAttributes.swift in Sources */,

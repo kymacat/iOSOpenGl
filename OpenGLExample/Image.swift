@@ -17,6 +17,6 @@ enum Image {
     return image
   }
 
-  static let tiger = getImage(with: "tiger")
-  static let duck = getImage(with: "duck")
+  static var tiger: UIImage { getImage(with: "tiger") }
+  static var duck: UIImage { getImage(with: "duck") }
 }

@@ -15,6 +15,13 @@ class GLViewController: GLKViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupGL()
+
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap))
+    view.addGestureRecognizer(tapGesture)
+  }
+
+  @objc private func onTap() {
+    (renderer as? GLTextureRenderer)?.flipAroundX()
   }
 
   private func setupGL() {

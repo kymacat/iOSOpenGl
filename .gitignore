@@ -37,4 +37,4 @@ buildscript/build/*
 
 ## User settings
 xcuserdata/
-UserInterfaceState.xcuserstate
+*.xcuserstate

@@ -8,12 +8,17 @@
 import GLKit
 
 class GLTextureRenderer: GLRenderer {
+  private var flipAngle: GLfloat = 0
   private var time: GLfloat = 0
   private let textures: [GLTexture]
 
   init(shader: GLEffect, mesh: GLMesh, textures: [GLTexture]) {
     self.textures = textures
     super.init(shader: shader, mesh: mesh)
+  }
+
+  func flipAroundX() {
+    flipAngle += 2 * .pi
   }
 
   override func setup() {
@@ -59,6 +64,21 @@ class GLTextureRenderer: GLRenderer {
 
     time += 1
     glUniform1f(glGetUniformLocation(effect.glProgram, "time"), time / 10)
+
+    var model = GLKMatrix4.identity.rotate(rotationX: flipAngle)
+    model.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "model"), 1, 0, $0) }
+    flipAngle /= 1.1
+
+    var view = GLKMatrix4(eye: [-1.2, -1.2, 1.2], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
+    view.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "view"), 1, 0, $0) }
+
+    var proj = GLKMatrix4(
+      projectionFov: .pi / 2,
+      near: 1,
+      far: 10,
+      aspect: Float(controller.view.bounds.width / controller.view.bounds.height)
+    )
+    proj.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "proj"), 1, 0, $0) }
 
     glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
 
