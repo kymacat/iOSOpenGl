@@ -10,7 +10,7 @@ import GLKit
 
 class GLViewController: GLKViewController {
   private var context: EAGLContext?
-  private var renderer: GLRenderer = .textureWithWaterEffectRenderer
+  private var renderer: GLRenderer = .boxWithTexturesRenderer
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,6 +30,7 @@ class GLViewController: GLKViewController {
 
     if let view = self.view as? GLKView, let context = context {
       view.context = context
+      view.drawableDepthFormat = .format24
       delegate = renderer
     }
 

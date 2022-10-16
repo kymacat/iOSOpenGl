@@ -35,30 +35,12 @@ class GLTextureRenderer: GLRenderer {
   }
 
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
+    glEnable(GLenum(GL_DEPTH_TEST))
     glClearColor(0.25, 0.25, 0.25, 1.0)
-    glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+    glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
 
     effect.prepareToDraw()
-
-    glEnableVertexAttribArray(GLVertexAttributes.position.rawValue)
-    glVertexAttribPointer(
-      GLVertexAttributes.position.rawValue,
-      2,
-      GLenum(GL_FLOAT),
-      GLboolean(GL_FALSE),
-      GLsizei(4 * MemoryLayout<GLfloat>.stride),
-      nil
-    )
-
-    glEnableVertexAttribArray(GLVertexAttributes.textureCoordinate.rawValue)
-    glVertexAttribPointer(
-      GLVertexAttributes.textureCoordinate.rawValue,
-      2,
-      GLenum(GL_FLOAT),
-      GLboolean(GL_FALSE),
-      GLsizei(4 * MemoryLayout<GLfloat>.stride),
-      UnsafeRawPointer(bitPattern: 2 * MemoryLayout<GLfloat>.stride)
-    )
+    mesh.setupDescriptor()
 
     textures.forEach { glUniform1i(glGetUniformLocation(effect.glProgram, $0.attribName), GLint($0.name)) }
 
@@ -66,10 +48,10 @@ class GLTextureRenderer: GLRenderer {
     glUniform1f(glGetUniformLocation(effect.glProgram, "time"), time / 10)
 
     var model = GLKMatrix4.identity.rotate(rotationX: flipAngle)
-    model.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "model"), 1, 0, $0) }
+    model.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "model"), 1, 1, $0) }
     flipAngle /= 1.1
 
-    var view = GLKMatrix4(eye: [-1.2, -1.2, 1.2], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
+    var view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
     view.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "view"), 1, 0, $0) }
 
     var proj = GLKMatrix4(

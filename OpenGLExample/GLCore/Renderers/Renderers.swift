@@ -58,5 +58,19 @@ extension GLRenderer {
       ]
     )
   }
+
+  static var boxWithTexturesRenderer: GLRenderer {
+    GLTextureRenderer(
+      shader: GLEffect(
+        vertexShader: .textureVertex,
+        fragmentShader: .textureWithWaterEffect,
+        attributes: [.position, .textureCoordinate]
+      ),
+      mesh: .boxWithTexture,
+      textures: [
+        GLTexture(image: Image.duck.cgImage!, attribName: "tex")
+      ]
+    )
+  }
 }
 

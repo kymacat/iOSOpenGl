@@ -26,26 +26,7 @@ class GLRenderer: NSObject, GLKViewControllerDelegate {
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
 
     effect.prepareToDraw()
-
-    glEnableVertexAttribArray(GLVertexAttributes.position.rawValue)
-    glVertexAttribPointer(
-      GLVertexAttributes.position.rawValue,
-      2,
-      GLenum(GL_FLOAT),
-      GLboolean(GL_FALSE),
-      GLsizei(7 * MemoryLayout<GLfloat>.stride),
-      nil
-    )
-
-    glEnableVertexAttribArray(GLVertexAttributes.color.rawValue)
-    glVertexAttribPointer(
-      GLVertexAttributes.color.rawValue,
-      3,
-      GLenum(GL_FLOAT),
-      GLboolean(GL_FALSE),
-      GLsizei(7 * MemoryLayout<GLfloat>.stride),
-      UnsafeRawPointer(bitPattern: 2 * MemoryLayout<GLfloat>.stride)
-    )
+    mesh.setupDescriptor()
 
     glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
 
