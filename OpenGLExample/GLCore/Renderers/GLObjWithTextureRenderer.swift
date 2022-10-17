@@ -7,7 +7,7 @@
 
 import GLKit
 
-class GLTextureRenderer: GLRenderer {
+class GLObjWithTextureRenderer: GLRenderer {
   private var flipAngle: GLfloat = 0
   private var time: GLfloat = 0
   private let textures: [GLTexture]
@@ -63,10 +63,5 @@ class GLTextureRenderer: GLRenderer {
     proj.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "proj"), 1, 0, $0) }
 
     glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
-
-//    If you want to draw without indexes
-//    glDrawArrays(GLenum(GL_TRIANGLES), 0, GLsizei(mesh.vertices.count))
-
-    glDisableVertexAttribArray(GLVertexAttributes.position.rawValue)
   }
 }

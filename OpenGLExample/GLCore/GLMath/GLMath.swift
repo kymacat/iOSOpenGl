@@ -66,6 +66,17 @@ extension GLKMatrix4 {
     ))
   }
 
+  // MARK: - Translate
+
+  func translate(translation: float3) -> Self {
+    GLKMatrix4(.init(
+      m00:  m00, m01: m01, m02: m02, m03: m03 + translation.x,
+      m10:  m10, m11: m11, m12: m12, m13: m13 + translation.y,
+      m20:  m20, m21: m21, m22: m22, m23: m23 + translation.z,
+      m30:  m30, m31: m31, m32: m32, m33: m33
+    ))
+  }
+
   // MARK: - Rotate
 
   func rotate(rotationZ angle: Float) -> Self {
@@ -88,12 +99,12 @@ extension GLKMatrix4 {
 
   // MARK: - Scale
 
-  func scale(scaling: Float) -> Self {
+  func scale(scaling: float3) -> Self {
     GLKMatrix4(.init(
-      m00:  m00 * scaling,  m01: m01,           m02: m02,           m03: m03,
-      m10:  m10,            m11: m11 * scaling, m12: m12,           m13: m13,
-      m20:  m20,            m21: m21,           m22: m22 * scaling, m23: m23,
-      m30:  m30,            m31: m31,           m32: m32,           m33: m33
+      m00:  m00 * scaling.x,  m01: m01,             m02: m02,             m03: m03,
+      m10:  m10,              m11: m11 * scaling.y, m12: m12,             m13: m13,
+      m20:  m20,              m21: m21,             m22: m22 * scaling.z, m23: m23,
+      m30:  m30,              m31: m31,             m32: m32,             m33: m33
     ))
   }
 }

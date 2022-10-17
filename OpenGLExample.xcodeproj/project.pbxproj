@@ -21,7 +21,7 @@
 		DDAABE0D28F242E000A1B170 /* TextureMixFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDAABE0C28F242E000A1B170 /* TextureMixFragment.glsl */; };
 		DDAABE0F28F32FAD00A1B170 /* GLTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE0E28F32FAD00A1B170 /* GLTexture.swift */; };
 		DDAABE1128F36AF900A1B170 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE1028F36AF900A1B170 /* Image.swift */; };
-		DDAABE1428F36C3D00A1B170 /* GLTextureRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE1328F36C3D00A1B170 /* GLTextureRenderer.swift */; };
+		DDAABE1428F36C3D00A1B170 /* GLObjWithTextureRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE1328F36C3D00A1B170 /* GLObjWithTextureRenderer.swift */; };
 		DDAABE1628F36EA400A1B170 /* Renderers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE1528F36EA400A1B170 /* Renderers.swift */; };
 		DDAABE1828F3742100A1B170 /* TextureWithWaterEffectFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDAABE1728F3742100A1B170 /* TextureWithWaterEffectFragment.glsl */; };
 		DDD8AE9528F89050006C70C8 /* GLMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD8AE9428F89050006C70C8 /* GLMath.swift */; };
@@ -29,6 +29,10 @@
 		DDD8AE9D28FB0929006C70C8 /* Object2DWithColorDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD8AE9C28FB0929006C70C8 /* Object2DWithColorDescriptor.swift */; };
 		DDD8AE9F28FB0AB4006C70C8 /* Object3DWithTextureDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD8AE9E28FB0AB4006C70C8 /* Object3DWithTextureDescriptor.swift */; };
 		DDD8AEA328FB0CAF006C70C8 /* ObjWithTextureVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDD8AEA228FB0CAF006C70C8 /* ObjWithTextureVertex.glsl */; };
+		DDD8AEA528FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD8AEA428FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift */; };
+		DDD8AEA728FCD219006C70C8 /* Object3DWithColorDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD8AEA628FCD219006C70C8 /* Object3DWithColorDescriptor.swift */; };
+		DDD8AEAA28FCD35E006C70C8 /* Obj3DVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDD8AEA928FCD35E006C70C8 /* Obj3DVertex.glsl */; };
+		DDD8AEAE28FCD42D006C70C8 /* Obj3DFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDD8AEAD28FCD42D006C70C8 /* Obj3DFragment.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +51,7 @@
 		DDAABE0C28F242E000A1B170 /* TextureMixFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TextureMixFragment.glsl; sourceTree = "<group>"; };
 		DDAABE0E28F32FAD00A1B170 /* GLTexture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLTexture.swift; sourceTree = "<group>"; };
 		DDAABE1028F36AF900A1B170 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		DDAABE1328F36C3D00A1B170 /* GLTextureRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLTextureRenderer.swift; sourceTree = "<group>"; };
+		DDAABE1328F36C3D00A1B170 /* GLObjWithTextureRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLObjWithTextureRenderer.swift; sourceTree = "<group>"; };
 		DDAABE1528F36EA400A1B170 /* Renderers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderers.swift; sourceTree = "<group>"; };
 		DDAABE1728F3742100A1B170 /* TextureWithWaterEffectFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TextureWithWaterEffectFragment.glsl; sourceTree = "<group>"; };
 		DDD8AE9428F89050006C70C8 /* GLMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLMath.swift; sourceTree = "<group>"; };
@@ -55,6 +59,10 @@
 		DDD8AE9C28FB0929006C70C8 /* Object2DWithColorDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object2DWithColorDescriptor.swift; sourceTree = "<group>"; };
 		DDD8AE9E28FB0AB4006C70C8 /* Object3DWithTextureDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object3DWithTextureDescriptor.swift; sourceTree = "<group>"; };
 		DDD8AEA228FB0CAF006C70C8 /* ObjWithTextureVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ObjWithTextureVertex.glsl; sourceTree = "<group>"; };
+		DDD8AEA428FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLBoxWithMirroringRenderer.swift; sourceTree = "<group>"; };
+		DDD8AEA628FCD219006C70C8 /* Object3DWithColorDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object3DWithColorDescriptor.swift; sourceTree = "<group>"; };
+		DDD8AEA928FCD35E006C70C8 /* Obj3DVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = Obj3DVertex.glsl; sourceTree = "<group>"; };
+		DDD8AEAD28FCD42D006C70C8 /* Obj3DFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = Obj3DFragment.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +122,8 @@
 		DDAABDF928F1E9BD00A1B170 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				DDAABE0928F2422700A1B170 /* Texture */,
+				DDD8AEA828FCD2EE006C70C8 /* Obj3D */,
+				DDAABE0928F2422700A1B170 /* ObjWithTexture */,
 				DDAABE0828F2421700A1B170 /* Simple */,
 				DDAABE0628F2395C00A1B170 /* GLShader.swift */,
 			);
@@ -130,21 +139,22 @@
 			path = Simple;
 			sourceTree = "<group>";
 		};
-		DDAABE0928F2422700A1B170 /* Texture */ = {
+		DDAABE0928F2422700A1B170 /* ObjWithTexture */ = {
 			isa = PBXGroup;
 			children = (
 				DDD8AEA228FB0CAF006C70C8 /* ObjWithTextureVertex.glsl */,
 				DDAABE0C28F242E000A1B170 /* TextureMixFragment.glsl */,
 				DDAABE1728F3742100A1B170 /* TextureWithWaterEffectFragment.glsl */,
 			);
-			path = Texture;
+			path = ObjWithTexture;
 			sourceTree = "<group>";
 		};
 		DDAABE1228F36C1700A1B170 /* Renderers */ = {
 			isa = PBXGroup;
 			children = (
 				DDAABE0428F2358900A1B170 /* GLRenderer.swift */,
-				DDAABE1328F36C3D00A1B170 /* GLTextureRenderer.swift */,
+				DDAABE1328F36C3D00A1B170 /* GLObjWithTextureRenderer.swift */,
+				DDD8AEA428FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift */,
 				DDAABE1528F36EA400A1B170 /* Renderers.swift */,
 			);
 			path = Renderers;
@@ -172,9 +182,19 @@
 			children = (
 				DDD8AE9828FB088B006C70C8 /* GLMeshDescriptor.swift */,
 				DDD8AE9C28FB0929006C70C8 /* Object2DWithColorDescriptor.swift */,
+				DDD8AEA628FCD219006C70C8 /* Object3DWithColorDescriptor.swift */,
 				DDD8AE9E28FB0AB4006C70C8 /* Object3DWithTextureDescriptor.swift */,
 			);
 			path = GLMeshDescriptors;
+			sourceTree = "<group>";
+		};
+		DDD8AEA828FCD2EE006C70C8 /* Obj3D */ = {
+			isa = PBXGroup;
+			children = (
+				DDD8AEA928FCD35E006C70C8 /* Obj3DVertex.glsl */,
+				DDD8AEAD28FCD42D006C70C8 /* Obj3DFragment.glsl */,
+			);
+			path = Obj3D;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +255,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDD8AEAE28FCD42D006C70C8 /* Obj3DFragment.glsl in Resources */,
+				DDD8AEAA28FCD35E006C70C8 /* Obj3DVertex.glsl in Resources */,
 				DDD8AEA328FB0CAF006C70C8 /* ObjWithTextureVertex.glsl in Resources */,
 				DD033F0D28EBB49D00E8F466 /* LaunchScreen.storyboard in Resources */,
 				DDAABDFF28F1EA5100A1B170 /* SimpleFragment.glsl in Resources */,
@@ -255,6 +277,7 @@
 				DDAABE0728F2395C00A1B170 /* GLShader.swift in Sources */,
 				DDD8AE9D28FB0929006C70C8 /* Object2DWithColorDescriptor.swift in Sources */,
 				DDAABE1128F36AF900A1B170 /* Image.swift in Sources */,
+				DDD8AEA728FCD219006C70C8 /* Object3DWithColorDescriptor.swift in Sources */,
 				DDD8AE9928FB088B006C70C8 /* GLMeshDescriptor.swift in Sources */,
 				DDAABE0328F22D9100A1B170 /* GLMesh.swift in Sources */,
 				DDAABDF828F1E80400A1B170 /* GLEffect.swift in Sources */,
@@ -262,8 +285,9 @@
 				DDAABE1628F36EA400A1B170 /* Renderers.swift in Sources */,
 				DDAABE0528F2358900A1B170 /* GLRenderer.swift in Sources */,
 				DD033F0128EBB49B00E8F466 /* AppDelegate.swift in Sources */,
+				DDD8AEA528FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift in Sources */,
 				DDD8AE9528F89050006C70C8 /* GLMath.swift in Sources */,
-				DDAABE1428F36C3D00A1B170 /* GLTextureRenderer.swift in Sources */,
+				DDAABE1428F36C3D00A1B170 /* GLObjWithTextureRenderer.swift in Sources */,
 				DDAABE0F28F32FAD00A1B170 /* GLTexture.swift in Sources */,
 				DDAABE0128F2132F00A1B170 /* GLVertexAttributes.swift in Sources */,
 				DDD8AE9F28FB0AB4006C70C8 /* Object3DWithTextureDescriptor.swift in Sources */,

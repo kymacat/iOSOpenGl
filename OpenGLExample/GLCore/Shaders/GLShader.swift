@@ -11,6 +11,9 @@ enum GLShader: String {
   case simpleVertex = "SimpleVertex"
   case simpleFragment = "SimpleFragment"
 
+  case obj3DVertex = "Obj3DVertex"
+  case obj3DFragment = "Obj3DFragment"
+
   case textureVertex = "ObjWithTextureVertex"
   case textureMixFragment = "TextureMixFragment"
   case textureWithWaterEffect = "TextureWithWaterEffectFragment"

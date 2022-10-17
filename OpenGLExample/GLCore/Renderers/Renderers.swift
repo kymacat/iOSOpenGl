@@ -31,7 +31,7 @@ extension GLRenderer {
   }
 
   static var texturesMixRenderer: GLRenderer {
-    GLTextureRenderer(
+    GLObjWithTextureRenderer(
       shader: GLEffect(
         vertexShader: .textureVertex,
         fragmentShader: .textureMixFragment,
@@ -46,7 +46,7 @@ extension GLRenderer {
   }
 
   static var textureWithWaterEffectRenderer: GLRenderer {
-    GLTextureRenderer(
+    GLObjWithTextureRenderer(
       shader: GLEffect(
         vertexShader: .textureVertex,
         fragmentShader: .textureWithWaterEffect,
@@ -60,16 +60,13 @@ extension GLRenderer {
   }
 
   static var boxWithTexturesRenderer: GLRenderer {
-    GLTextureRenderer(
+    GLBoxWithMirroringRenderer(
       shader: GLEffect(
-        vertexShader: .textureVertex,
-        fragmentShader: .textureWithWaterEffect,
-        attributes: [.position, .textureCoordinate]
+        vertexShader: .obj3DVertex,
+        fragmentShader: .obj3DFragment,
+        attributes: [.position, .color]
       ),
-      mesh: .boxWithTexture,
-      textures: [
-        GLTexture(image: Image.duck.cgImage!, attribName: "tex")
-      ]
+      mesh: .boxWithFloor
     )
   }
 }

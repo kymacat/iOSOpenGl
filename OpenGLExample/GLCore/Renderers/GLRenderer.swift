@@ -29,10 +29,5 @@ class GLRenderer: NSObject, GLKViewControllerDelegate {
     mesh.setupDescriptor()
 
     glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
-
-//    If you want to draw without indexes
-//    glDrawArrays(GLenum(GL_TRIANGLES), 0, GLsizei(mesh.vertices.count))
-
-    glDisableVertexAttribArray(GLVertexAttributes.position.rawValue)
   }
 }

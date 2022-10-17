@@ -21,7 +21,7 @@ class GLViewController: GLKViewController {
   }
 
   @objc private func onTap() {
-    (renderer as? GLTextureRenderer)?.flipAroundX()
+    (renderer as? GLObjWithTextureRenderer)?.flipAroundX()
   }
 
   private func setupGL() {
@@ -31,6 +31,7 @@ class GLViewController: GLKViewController {
     if let view = self.view as? GLKView, let context = context {
       view.context = context
       view.drawableDepthFormat = .format24
+      view.drawableStencilFormat = .format8
       delegate = renderer
     }
 
