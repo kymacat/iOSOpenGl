@@ -29,4 +29,9 @@ class Object2DWithColorDescriptor: GLMeshDescriptor {
       UnsafeRawPointer(bitPattern: 2 * MemoryLayout<GLfloat>.stride)
     )
   }
+
+  deinit {
+    glDisableVertexAttribArray(GLVertexAttributes.position.rawValue)
+    glDisableVertexAttribArray(GLVertexAttributes.color.rawValue)
+  }
 }

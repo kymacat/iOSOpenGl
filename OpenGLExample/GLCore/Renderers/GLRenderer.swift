@@ -26,7 +26,6 @@ class GLRenderer: NSObject, GLKViewControllerDelegate {
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
 
     effect.prepareToDraw()
-    mesh.setupDescriptor()
 
     glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
   }

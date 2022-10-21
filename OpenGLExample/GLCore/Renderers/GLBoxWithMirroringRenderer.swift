@@ -8,7 +8,7 @@
 import GLKit
 
 class GLBoxWithMirroringRenderer: GLRenderer {
-  private var time: GLfloat = 0
+  var time: GLfloat = 0
 
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
     time += 1
@@ -18,7 +18,6 @@ class GLBoxWithMirroringRenderer: GLRenderer {
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
 
     effect.prepareToDraw()
-    mesh.setupDescriptor()
 
     let colorLoc = glGetUniformLocation(effect.glProgram, "overrideColor")
     glUniform3f(colorLoc, 1.0, 1.0, 1.0)

@@ -53,10 +53,12 @@ class GLMesh {
       indexes,
       GLenum(GL_STATIC_DRAW)
     )
+
+    descriptor.setup()
   }
 
-  func setupDescriptor() {
-    descriptor.setup()
+  func prepareToDraw() {
+    glBindVertexArray(vertexArrayObject)
   }
 }
 
@@ -205,6 +207,22 @@ extension GLMesh {
       ],
       indexes: [],
       descriptor: Object3DWithColorDescriptor()
+    )
+  }
+
+  static var fullScreenTexture: GLMesh {
+    GLMesh(
+      vertices: [
+        -1.0,  1.0,  0.0, 1.0,
+         1.0,  1.0,  1.0, 1.0,
+         1.0, -1.0,  1.0, 0.0,
+
+         1.0, -1.0,  1.0, 0.0,
+         -1.0, -1.0,  0.0, 0.0,
+         -1.0,  1.0,  0.0, 1.0
+      ],
+      indexes: [],
+      descriptor: Object2DWithTextureDescriptor()
     )
   }
 }

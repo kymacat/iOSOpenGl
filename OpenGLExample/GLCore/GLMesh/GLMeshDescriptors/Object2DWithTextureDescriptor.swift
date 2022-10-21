@@ -2,20 +2,20 @@
 //  Object2DWithTextureDescriptor.swift
 //  OpenGLExample
 //
-//  Created by Vladislav Yandola on 15.10.2022.
+//  Created by Vladislav Yandola on 21.10.2022.
 //
 
 import GLKit
 
-class Object3DWithTextureDescriptor: GLMeshDescriptor {
+class Object2DWithTextureDescriptor: GLMeshDescriptor {
   func setup() {
     glEnableVertexAttribArray(GLVertexAttributes.position.rawValue)
     glVertexAttribPointer(
       GLVertexAttributes.position.rawValue,
-      3,
+      2,
       GLenum(GL_FLOAT),
       GLboolean(GL_FALSE),
-      GLsizei(5 * MemoryLayout<GLfloat>.stride),
+      GLsizei(4 * MemoryLayout<GLfloat>.stride),
       nil
     )
 
@@ -25,8 +25,8 @@ class Object3DWithTextureDescriptor: GLMeshDescriptor {
       2,
       GLenum(GL_FLOAT),
       GLboolean(GL_FALSE),
-      GLsizei(5 * MemoryLayout<GLfloat>.stride),
-      UnsafeRawPointer(bitPattern: 3 * MemoryLayout<GLfloat>.stride)
+      GLsizei(4 * MemoryLayout<GLfloat>.stride),
+      UnsafeRawPointer(bitPattern: 2 * MemoryLayout<GLfloat>.stride)
     )
   }
 

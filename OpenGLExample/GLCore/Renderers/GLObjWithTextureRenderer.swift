@@ -40,7 +40,6 @@ class GLObjWithTextureRenderer: GLRenderer {
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
 
     effect.prepareToDraw()
-    mesh.setupDescriptor()
 
     textures.forEach { glUniform1i(glGetUniformLocation(effect.glProgram, $0.attribName), GLint($0.name)) }
 

@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD011D062900F95F0089C4F3 /* GLBoxPostProcessingRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD011D052900F95F0089C4F3 /* GLBoxPostProcessingRenderer.swift */; };
 		DD033F0128EBB49B00E8F466 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD033F0028EBB49B00E8F466 /* AppDelegate.swift */; };
 		DD033F0528EBB49B00E8F466 /* GLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD033F0428EBB49B00E8F466 /* GLViewController.swift */; };
 		DD033F0A28EBB49D00E8F466 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD033F0928EBB49D00E8F466 /* Assets.xcassets */; };
 		DD033F0D28EBB49D00E8F466 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD033F0B28EBB49D00E8F466 /* LaunchScreen.storyboard */; };
+		DD21422C2901FF6500DF3575 /* PostProcessingVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD21422B2901FF6500DF3575 /* PostProcessingVertex.glsl */; };
+		DD21422E2901FFD400DF3575 /* PostProcessingInverceFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD21422D2901FFD400DF3575 /* PostProcessingInverceFragment.glsl */; };
+		DD214230290201CE00DF3575 /* Object2DWithTextureDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD21422F290201CE00DF3575 /* Object2DWithTextureDescriptor.swift */; };
+		DD2142322902217B00DF3575 /* PostProcessingGrayscaleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD2142312902217B00DF3575 /* PostProcessingGrayscaleFragment.glsl */; };
+		DD214234290222B600DF3575 /* PostProcessingBlurFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD214233290222B600DF3575 /* PostProcessingBlurFragment.glsl */; };
+		DD214236290226B500DF3575 /* PostProcessingSobelFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD214235290226B500DF3575 /* PostProcessingSobelFragment.glsl */; };
 		DDAABDF828F1E80400A1B170 /* GLEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABDF728F1E80400A1B170 /* GLEffect.swift */; };
 		DDAABDFB28F1E9EC00A1B170 /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDAABDFA28F1E9EC00A1B170 /* SimpleVertex.glsl */; };
 		DDAABDFF28F1EA5100A1B170 /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDAABDFE28F1EA5100A1B170 /* SimpleFragment.glsl */; };
@@ -36,11 +43,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD011D052900F95F0089C4F3 /* GLBoxPostProcessingRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLBoxPostProcessingRenderer.swift; sourceTree = "<group>"; };
 		DD033EFD28EBB49B00E8F466 /* OpenGLExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD033F0028EBB49B00E8F466 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD033F0428EBB49B00E8F466 /* GLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLViewController.swift; sourceTree = "<group>"; };
 		DD033F0928EBB49D00E8F466 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD033F0C28EBB49D00E8F466 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DD21422B2901FF6500DF3575 /* PostProcessingVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessingVertex.glsl; sourceTree = "<group>"; };
+		DD21422D2901FFD400DF3575 /* PostProcessingInverceFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessingInverceFragment.glsl; sourceTree = "<group>"; };
+		DD21422F290201CE00DF3575 /* Object2DWithTextureDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object2DWithTextureDescriptor.swift; sourceTree = "<group>"; };
+		DD2142312902217B00DF3575 /* PostProcessingGrayscaleFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessingGrayscaleFragment.glsl; sourceTree = "<group>"; };
+		DD214233290222B600DF3575 /* PostProcessingBlurFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessingBlurFragment.glsl; sourceTree = "<group>"; };
+		DD214235290226B500DF3575 /* PostProcessingSobelFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessingSobelFragment.glsl; sourceTree = "<group>"; };
 		DDAABDF728F1E80400A1B170 /* GLEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLEffect.swift; sourceTree = "<group>"; };
 		DDAABDFA28F1E9EC00A1B170 /* SimpleVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleVertex.glsl; sourceTree = "<group>"; };
 		DDAABDFE28F1EA5100A1B170 /* SimpleFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleFragment.glsl; sourceTree = "<group>"; };
@@ -105,6 +119,18 @@
 			path = OpenGLExample;
 			sourceTree = "<group>";
 		};
+		DD21422A2901FF3500DF3575 /* PostProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				DD21422B2901FF6500DF3575 /* PostProcessingVertex.glsl */,
+				DD21422D2901FFD400DF3575 /* PostProcessingInverceFragment.glsl */,
+				DD2142312902217B00DF3575 /* PostProcessingGrayscaleFragment.glsl */,
+				DD214233290222B600DF3575 /* PostProcessingBlurFragment.glsl */,
+				DD214235290226B500DF3575 /* PostProcessingSobelFragment.glsl */,
+			);
+			path = PostProcessing;
+			sourceTree = "<group>";
+		};
 		DDAABDF628F1E7C000A1B170 /* GLCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +148,7 @@
 		DDAABDF928F1E9BD00A1B170 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				DD21422A2901FF3500DF3575 /* PostProcessing */,
 				DDD8AEA828FCD2EE006C70C8 /* Obj3D */,
 				DDAABE0928F2422700A1B170 /* ObjWithTexture */,
 				DDAABE0828F2421700A1B170 /* Simple */,
@@ -155,6 +182,7 @@
 				DDAABE0428F2358900A1B170 /* GLRenderer.swift */,
 				DDAABE1328F36C3D00A1B170 /* GLObjWithTextureRenderer.swift */,
 				DDD8AEA428FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift */,
+				DD011D052900F95F0089C4F3 /* GLBoxPostProcessingRenderer.swift */,
 				DDAABE1528F36EA400A1B170 /* Renderers.swift */,
 			);
 			path = Renderers;
@@ -182,6 +210,7 @@
 			children = (
 				DDD8AE9828FB088B006C70C8 /* GLMeshDescriptor.swift */,
 				DDD8AE9C28FB0929006C70C8 /* Object2DWithColorDescriptor.swift */,
+				DD21422F290201CE00DF3575 /* Object2DWithTextureDescriptor.swift */,
 				DDD8AEA628FCD219006C70C8 /* Object3DWithColorDescriptor.swift */,
 				DDD8AE9E28FB0AB4006C70C8 /* Object3DWithTextureDescriptor.swift */,
 			);
@@ -255,14 +284,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD21422E2901FFD400DF3575 /* PostProcessingInverceFragment.glsl in Resources */,
 				DDD8AEAE28FCD42D006C70C8 /* Obj3DFragment.glsl in Resources */,
+				DD2142322902217B00DF3575 /* PostProcessingGrayscaleFragment.glsl in Resources */,
 				DDD8AEAA28FCD35E006C70C8 /* Obj3DVertex.glsl in Resources */,
+				DD214234290222B600DF3575 /* PostProcessingBlurFragment.glsl in Resources */,
 				DDD8AEA328FB0CAF006C70C8 /* ObjWithTextureVertex.glsl in Resources */,
+				DD214236290226B500DF3575 /* PostProcessingSobelFragment.glsl in Resources */,
 				DD033F0D28EBB49D00E8F466 /* LaunchScreen.storyboard in Resources */,
 				DDAABDFF28F1EA5100A1B170 /* SimpleFragment.glsl in Resources */,
 				DD033F0A28EBB49D00E8F466 /* Assets.xcassets in Resources */,
 				DDAABDFB28F1E9EC00A1B170 /* SimpleVertex.glsl in Resources */,
 				DDAABE1828F3742100A1B170 /* TextureWithWaterEffectFragment.glsl in Resources */,
+				DD21422C2901FF6500DF3575 /* PostProcessingVertex.glsl in Resources */,
 				DDAABE0D28F242E000A1B170 /* TextureMixFragment.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,10 +316,12 @@
 				DDAABE0328F22D9100A1B170 /* GLMesh.swift in Sources */,
 				DDAABDF828F1E80400A1B170 /* GLEffect.swift in Sources */,
 				DD033F0528EBB49B00E8F466 /* GLViewController.swift in Sources */,
+				DD011D062900F95F0089C4F3 /* GLBoxPostProcessingRenderer.swift in Sources */,
 				DDAABE1628F36EA400A1B170 /* Renderers.swift in Sources */,
 				DDAABE0528F2358900A1B170 /* GLRenderer.swift in Sources */,
 				DD033F0128EBB49B00E8F466 /* AppDelegate.swift in Sources */,
 				DDD8AEA528FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift in Sources */,
+				DD214230290201CE00DF3575 /* Object2DWithTextureDescriptor.swift in Sources */,
 				DDD8AE9528F89050006C70C8 /* GLMath.swift in Sources */,
 				DDAABE1428F36C3D00A1B170 /* GLObjWithTextureRenderer.swift in Sources */,
 				DDAABE0F28F32FAD00A1B170 /* GLTexture.swift in Sources */,
@@ -436,8 +472,8 @@
 				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -464,8 +500,8 @@
 				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

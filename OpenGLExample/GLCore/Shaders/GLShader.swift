@@ -17,4 +17,10 @@ enum GLShader: String {
   case textureVertex = "ObjWithTextureVertex"
   case textureMixFragment = "TextureMixFragment"
   case textureWithWaterEffect = "TextureWithWaterEffectFragment"
+
+  case postProcessingVertex = "PostProcessingVertex"
+  case postProcessingInverceFragment = "PostProcessingInverceFragment"
+  case postProcessingGrayscaleFragment = "PostProcessingGrayscaleFragment"
+  case postProcessingBlurFragment = "PostProcessingBlurFragment"
+  case postProcessingSobelFragment = "PostProcessingSobelFragment"
 }

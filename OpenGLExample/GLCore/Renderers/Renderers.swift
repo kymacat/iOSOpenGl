@@ -59,7 +59,7 @@ extension GLRenderer {
     )
   }
 
-  static var boxWithTexturesRenderer: GLRenderer {
+  static var boxWithMirroringRenderer: GLRenderer {
     GLBoxWithMirroringRenderer(
       shader: GLEffect(
         vertexShader: .obj3DVertex,
@@ -67,6 +67,74 @@ extension GLRenderer {
         attributes: [.position, .color]
       ),
       mesh: .boxWithFloor
+    )
+  }
+
+  static var boxWithInvercePostProcessingRenderer: GLRenderer {
+    GLBoxPostProcessingRenderer(
+      shader: GLEffect(
+        vertexShader: .obj3DVertex,
+        fragmentShader: .obj3DFragment,
+        attributes: [.position, .color]
+      ),
+      mesh: .boxWithFloor,
+      postProcessingEffect: GLEffect(
+        vertexShader: .postProcessingVertex,
+        fragmentShader: .postProcessingInverceFragment,
+        attributes: [.position, .textureCoordinate]
+      ),
+      postProcessingMesh: .fullScreenTexture
+    )
+  }
+
+  static var boxWithGrayscalePostProcessingRenderer: GLRenderer {
+    GLBoxPostProcessingRenderer(
+      shader: GLEffect(
+        vertexShader: .obj3DVertex,
+        fragmentShader: .obj3DFragment,
+        attributes: [.position, .color]
+      ),
+      mesh: .boxWithFloor,
+      postProcessingEffect: GLEffect(
+        vertexShader: .postProcessingVertex,
+        fragmentShader: .postProcessingGrayscaleFragment,
+        attributes: [.position, .textureCoordinate]
+      ),
+      postProcessingMesh: .fullScreenTexture
+    )
+  }
+
+  static var boxWithBlurPostProcessingRenderer: GLRenderer {
+    GLBoxPostProcessingRenderer(
+      shader: GLEffect(
+        vertexShader: .obj3DVertex,
+        fragmentShader: .obj3DFragment,
+        attributes: [.position, .color]
+      ),
+      mesh: .boxWithFloor,
+      postProcessingEffect: GLEffect(
+        vertexShader: .postProcessingVertex,
+        fragmentShader: .postProcessingBlurFragment,
+        attributes: [.position, .textureCoordinate]
+      ),
+      postProcessingMesh: .fullScreenTexture
+    )
+  }
+
+  static var boxWithSobelPostProcessingRenderer: GLRenderer {
+    GLBoxPostProcessingRenderer(
+      shader: GLEffect(
+        vertexShader: .obj3DVertex,
+        fragmentShader: .obj3DFragment,
+        attributes: [.position, .color]
+      ),
+      mesh: .boxWithFloor,
+      postProcessingEffect: GLEffect(
+        vertexShader: .postProcessingVertex,
+        fragmentShader: .postProcessingSobelFragment,
+        attributes: [.position, .textureCoordinate]
+      ),
+      postProcessingMesh: .fullScreenTexture
     )
   }
 }
