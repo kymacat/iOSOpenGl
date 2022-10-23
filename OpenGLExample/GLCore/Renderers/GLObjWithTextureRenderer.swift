@@ -12,9 +12,9 @@ class GLObjWithTextureRenderer: GLRenderer {
   private var time: GLfloat = 0
   private let textures: [GLTexture]
 
-  init(shader: GLEffect, mesh: GLMesh, textures: [GLTexture]) {
+  init(program: GLProgram, mesh: GLMesh, textures: [GLTexture]) {
     self.textures = textures
-    super.init(shader: shader, mesh: mesh)
+    super.init(program: program, mesh: mesh)
   }
 
   func flipAroundX() {
@@ -35,32 +35,43 @@ class GLObjWithTextureRenderer: GLRenderer {
   }
 
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
+    time += 1
+    program.prepareToDraw()
+    mesh.prepareToDraw()
+    drawObject(containerSize: controller.view.bounds.size)
+  }
+
+  private func drawObject(containerSize: CGSize) {
     glEnable(GLenum(GL_DEPTH_TEST))
     glClearColor(0.25, 0.25, 0.25, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
 
-    effect.prepareToDraw()
+    textures.forEach { glUniform1i(glGetUniformLocation(program.glProgram, $0.attribName), GLint($0.name)) }
 
-    textures.forEach { glUniform1i(glGetUniformLocation(effect.glProgram, $0.attribName), GLint($0.name)) }
-
-    time += 1
-    glUniform1f(glGetUniformLocation(effect.glProgram, "time"), time / 10)
+    glUniform1f(glGetUniformLocation(program.glProgram, GLShaderAttribute.time.rawValue), time / 10)
 
     var model = GLKMatrix4.identity.rotate(rotationX: flipAngle)
-    model.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "model"), 1, 1, $0) }
+    model.glFloatPointer {
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.modelMatrix.rawValue), 1, 0, $0)
+    }
     flipAngle /= 1.1
 
     var view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
-    view.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "view"), 1, 0, $0) }
+    view.glFloatPointer {
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.viewMatrix.rawValue), 1, 0, $0)
+    }
 
     var proj = GLKMatrix4(
       projectionFov: .pi / 2,
       near: 1,
       far: 10,
-      aspect: Float(controller.view.bounds.width / controller.view.bounds.height)
+      aspect: Float(containerSize.width / containerSize.height)
     )
-    proj.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "proj"), 1, 0, $0) }
+    proj.glFloatPointer {
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.projectionMatrix.rawValue), 1, 0, $0)
+    }
 
     glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
+    glDisable(GLenum(GL_DEPTH_TEST))
   }
 }

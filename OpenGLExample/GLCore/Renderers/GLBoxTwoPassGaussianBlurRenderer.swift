@@ -1,18 +1,19 @@
 //
-//  GLBoxPostProcessingRenderer.swift
+//  GLBoxTwoPassGaussianBlurRenderer.swift
 //  OpenGLExample
 //
-//  Created by Vladislav Yandola on 20.10.2022.
+//  Created by Vladislav Yandola on 23.10.2022.
 //
 
 import GLKit
 
-class GLBoxPostProcessingRenderer: GLRenderer {
+class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
   private let postProcessingProgram: GLProgram
   private let postProcessingMesh: GLMesh
 
   private var time: Float = 0
-  private var frameBuffer: GLuint = 0
+  private var frameBuffers: [GLuint] = [0, 0]
+  private var texColorBuffers: [GLuint] = [0, 0]
 
   init(
     program: GLProgram,
@@ -31,24 +32,35 @@ class GLBoxPostProcessingRenderer: GLRenderer {
     postProcessingMesh.setup()
 
     // Create framebuffer
-    glGenFramebuffers(1, &frameBuffer)
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
+    glGenFramebuffers(2, &frameBuffers)
 
     // Create texture to hold color buffer
-    var texColorBuffer: GLuint = 0
-    glGenTextures(1, &texColorBuffer)
-    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffer)
+    glGenTextures(2, &texColorBuffers)
 
     let width = Int32(UIScreen.main.bounds.width * UIScreen.main.scale)
     let height = Int32(UIScreen.main.bounds.height * UIScreen.main.scale)
-    glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB, width, height, 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), nil)
 
+    // Set up the first framebuffer's color buffer
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
+    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[0])
+
+    glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB, width, height, 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), nil)
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR)
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
+    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffers[0], 0)
 
-    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffer, 0)
+    // Set up the second framebuffer's color buffer
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[1])
+    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[1])
 
-    // Create Renderbuffer Object to hold depth and stencil buffers
+    glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB, width, height, 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), nil)
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR)
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
+    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffers[1], 0)
+
+    // Create first Renderbuffer Object to hold depth and stencil buffers
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
+
     var rboDepthStencil: GLuint = 0
     glGenRenderbuffers(1, &rboDepthStencil)
     glBindRenderbuffer(GLenum(GL_RENDERBUFFER), rboDepthStencil)
@@ -59,14 +71,25 @@ class GLBoxPostProcessingRenderer: GLRenderer {
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
     time += 1
 
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
     program.prepareToDraw()
     mesh.prepareToDraw()
     drawBox(containerSize: controller.view.bounds.size)
 
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), 2)
+    let textureOffsetUniform = glGetUniformLocation(postProcessingProgram.glProgram, GLShaderAttribute.textureOffset.rawValue)
+
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[1])
+    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[0])
     postProcessingProgram.prepareToDraw()
     postProcessingMesh.prepareToDraw()
+    glUniform2f(textureOffsetUniform, 1.0 / 300.0, 0.0)
+    glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
+
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), 3)
+    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[1])
+    postProcessingProgram.prepareToDraw()
+    postProcessingMesh.prepareToDraw()
+    glUniform2f(textureOffsetUniform, 0.0, 1.0 / 300.0)
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
   }
 
@@ -127,3 +150,4 @@ class GLBoxPostProcessingRenderer: GLRenderer {
     glDisable(GLenum(GL_DEPTH_TEST))
   }
 }
+

@@ -10,7 +10,7 @@ import Foundation
 extension GLRenderer {
   static var simpleTriangleRenderer: GLRenderer {
     GLRenderer(
-      shader: GLEffect(
+      program: GLProgram(
         vertexShader: .simpleVertex,
         fragmentShader: .simpleFragment,
         attributes: [.position, .color]
@@ -21,7 +21,7 @@ extension GLRenderer {
 
   static var simpleRectangleRenderer: GLRenderer {
     GLRenderer(
-      shader: GLEffect(
+      program: GLProgram(
         vertexShader: .simpleVertex,
         fragmentShader: .simpleFragment,
         attributes: [.position, .color]
@@ -32,7 +32,7 @@ extension GLRenderer {
 
   static var texturesMixRenderer: GLRenderer {
     GLObjWithTextureRenderer(
-      shader: GLEffect(
+      program: GLProgram(
         vertexShader: .textureVertex,
         fragmentShader: .textureMixFragment,
         attributes: [.position, .textureCoordinate]
@@ -47,7 +47,7 @@ extension GLRenderer {
 
   static var textureWithWaterEffectRenderer: GLRenderer {
     GLObjWithTextureRenderer(
-      shader: GLEffect(
+      program: GLProgram(
         vertexShader: .textureVertex,
         fragmentShader: .textureWithWaterEffect,
         attributes: [.position, .textureCoordinate]
@@ -61,7 +61,7 @@ extension GLRenderer {
 
   static var boxWithMirroringRenderer: GLRenderer {
     GLBoxWithMirroringRenderer(
-      shader: GLEffect(
+      program: GLProgram(
         vertexShader: .obj3DVertex,
         fragmentShader: .obj3DFragment,
         attributes: [.position, .color]
@@ -72,13 +72,13 @@ extension GLRenderer {
 
   static var boxWithInvercePostProcessingRenderer: GLRenderer {
     GLBoxPostProcessingRenderer(
-      shader: GLEffect(
+      program: GLProgram(
         vertexShader: .obj3DVertex,
         fragmentShader: .obj3DFragment,
         attributes: [.position, .color]
       ),
       mesh: .boxWithFloor,
-      postProcessingEffect: GLEffect(
+      postProcessingProgram: GLProgram(
         vertexShader: .postProcessingVertex,
         fragmentShader: .postProcessingInverceFragment,
         attributes: [.position, .textureCoordinate]
@@ -89,13 +89,13 @@ extension GLRenderer {
 
   static var boxWithGrayscalePostProcessingRenderer: GLRenderer {
     GLBoxPostProcessingRenderer(
-      shader: GLEffect(
+      program: GLProgram(
         vertexShader: .obj3DVertex,
         fragmentShader: .obj3DFragment,
         attributes: [.position, .color]
       ),
       mesh: .boxWithFloor,
-      postProcessingEffect: GLEffect(
+      postProcessingProgram: GLProgram(
         vertexShader: .postProcessingVertex,
         fragmentShader: .postProcessingGrayscaleFragment,
         attributes: [.position, .textureCoordinate]
@@ -106,13 +106,13 @@ extension GLRenderer {
 
   static var boxWithBlurPostProcessingRenderer: GLRenderer {
     GLBoxPostProcessingRenderer(
-      shader: GLEffect(
+      program: GLProgram(
         vertexShader: .obj3DVertex,
         fragmentShader: .obj3DFragment,
         attributes: [.position, .color]
       ),
       mesh: .boxWithFloor,
-      postProcessingEffect: GLEffect(
+      postProcessingProgram: GLProgram(
         vertexShader: .postProcessingVertex,
         fragmentShader: .postProcessingBlurFragment,
         attributes: [.position, .textureCoordinate]
@@ -123,15 +123,49 @@ extension GLRenderer {
 
   static var boxWithSobelPostProcessingRenderer: GLRenderer {
     GLBoxPostProcessingRenderer(
-      shader: GLEffect(
+      program: GLProgram(
         vertexShader: .obj3DVertex,
         fragmentShader: .obj3DFragment,
         attributes: [.position, .color]
       ),
       mesh: .boxWithFloor,
-      postProcessingEffect: GLEffect(
+      postProcessingProgram: GLProgram(
         vertexShader: .postProcessingVertex,
         fragmentShader: .postProcessingSobelFragment,
+        attributes: [.position, .textureCoordinate]
+      ),
+      postProcessingMesh: .fullScreenTexture
+    )
+  }
+
+  static var boxWithTwoPassGaussianBlurPostProcessingRenderer: GLRenderer {
+    GLBoxTwoPassGaussianBlurRenderer(
+      program: GLProgram(
+        vertexShader: .obj3DVertex,
+        fragmentShader: .obj3DFragment,
+        attributes: [.position, .color]
+      ),
+      mesh: .boxWithFloor,
+      postProcessingProgram: GLProgram(
+        vertexShader: .postProcessingVertex,
+        fragmentShader: .postProcessingGaussianBlurFragment,
+        attributes: [.position, .textureCoordinate]
+      ),
+      postProcessingMesh: .fullScreenTexture
+    )
+  }
+
+  static var boxWithPanelRenderer: GLRenderer {
+    GLBoxWithPanelRenderer(
+      program: GLProgram(
+        vertexShader: .obj3DVertex,
+        fragmentShader: .obj3DFragment,
+        attributes: [.position, .color]
+      ),
+      mesh: .boxWithFloor,
+      postProcessingProgram: GLProgram(
+        vertexShader: .postProcessing3DVertex,
+        fragmentShader: .postProcessingFragment,
         attributes: [.position, .textureCoordinate]
       ),
       postProcessingMesh: .fullScreenTexture

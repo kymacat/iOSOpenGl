@@ -10,7 +10,7 @@ import GLKit
 
 class GLViewController: GLKViewController {
   private var context: EAGLContext?
-  private var renderer: GLRenderer = .boxWithSobelPostProcessingRenderer
+  private var renderer: GLRenderer = .boxWithPanelRenderer
 
   override func viewDidLoad() {
     super.viewDidLoad()

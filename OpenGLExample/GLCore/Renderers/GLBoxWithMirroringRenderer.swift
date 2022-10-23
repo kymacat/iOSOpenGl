@@ -8,33 +8,42 @@
 import GLKit
 
 class GLBoxWithMirroringRenderer: GLRenderer {
-  var time: GLfloat = 0
+  private var time: GLfloat = 0
 
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
     time += 1
+    program.prepareToDraw()
+    mesh.prepareToDraw()
+    drawBox(containerSize: controller.view.bounds.size)
+  }
 
+  private func drawBox(containerSize: CGSize) {
     glEnable(GLenum(GL_DEPTH_TEST))
     glClearColor(0.25, 0.25, 0.25, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
 
-    effect.prepareToDraw()
-
-    let colorLoc = glGetUniformLocation(effect.glProgram, "overrideColor")
+    let colorLoc = glGetUniformLocation(program.glProgram, GLShaderAttribute.overrideColor.rawValue)
     glUniform3f(colorLoc, 1.0, 1.0, 1.0)
 
     var model = GLKMatrix4.identity.rotate(rotationZ: time / 60)
-    model.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "model"), 1, 1, $0) }
+    model.glFloatPointer {
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.modelMatrix.rawValue), 1, 0, $0)
+    }
 
     var view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
-    view.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "view"), 1, 0, $0) }
+    view.glFloatPointer {
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.viewMatrix.rawValue), 1, 0, $0)
+    }
 
     var proj = GLKMatrix4(
       projectionFov: .pi / 2,
       near: 1,
       far: 10,
-      aspect: Float(controller.view.bounds.width / controller.view.bounds.height)
+      aspect: Float(containerSize.width / containerSize.height)
     )
-    proj.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "proj"), 1, 0, $0) }
+    proj.glFloatPointer {
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.projectionMatrix.rawValue), 1, 0, $0)
+    }
 
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
 
@@ -54,11 +63,14 @@ class GLBoxWithMirroringRenderer: GLRenderer {
     glDepthMask(GLboolean(GL_TRUE)) // Write to depth buffer
 
     model = model.translate(translation: [0, 0, -1]).scale(scaling: [1, 1, -1])
-    model.glFloatPointer { glUniformMatrix4fv(glGetUniformLocation(effect.glProgram, "model"), 1, 1, $0) }
+    model.glFloatPointer {
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.modelMatrix.rawValue), 1, 0, $0)
+    }
 
     glUniform3f(colorLoc, 0.3, 0.3, 0.3)
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
 
     glDisable(GLenum(GL_STENCIL_TEST))
+    glDisable(GLenum(GL_DEPTH_TEST))
   }
 }

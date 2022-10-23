@@ -8,7 +8,7 @@
 import Foundation
 import GLKit
 
-class GLEffect {
+class GLProgram {
   private let vertexShaderName: String
   private let fragmentShaderName: String
   private let attributes: [GLVertexAttributes]

@@ -8,24 +8,25 @@
 import GLKit
 
 class GLRenderer: NSObject, GLKViewControllerDelegate {
-  let effect: GLEffect
+  let program: GLProgram
   let mesh: GLMesh
 
-  init(shader: GLEffect, mesh: GLMesh) {
-    self.effect = shader
+  init(program: GLProgram, mesh: GLMesh) {
+    self.program = program
     self.mesh = mesh
   }
 
   func setup() {
-    effect.setup()
+    program.setup()
     mesh.setup()
   }
 
   func glkViewControllerUpdate(_ controller: GLKViewController) {
+    program.prepareToDraw()
+    mesh.prepareToDraw()
+
     glClearColor(0.25, 0.25, 0.25, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
-
-    effect.prepareToDraw()
 
     glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
   }
