@@ -63,6 +63,19 @@ class GLMesh {
 }
 
 extension GLMesh {
+  static var points: GLMesh {
+    GLMesh(
+      vertices: [
+        -0.45,  0.45,
+         0.45,  0.45,
+         0.45, -0.45,
+         -0.45, -0.45
+      ],
+      indexes: [],
+      descriptor: Points2DDescriptor()
+    )
+  }
+
   static var triangle: GLMesh {
     GLMesh(
       vertices: [

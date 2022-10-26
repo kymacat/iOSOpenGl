@@ -26,4 +26,7 @@ enum GLShader: String {
   case postProcessingBlurFragment = "PostProcessingBlurFragment"
   case postProcessingSobelFragment = "PostProcessingSobelFragment"
   case postProcessingGaussianBlurFragment = "PostProcessingGaussianBlurFragment"
+
+  case pointsVertex = "PointsVertex"
+  case pointsFragment = "PointsFragment"
 }

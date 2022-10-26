@@ -24,6 +24,10 @@
 		DD351A0C2904E66500C50D50 /* GLBoxWithPanelRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD351A0B2904E66400C50D50 /* GLBoxWithPanelRenderer.swift */; };
 		DD351A0E2904E74A00C50D50 /* PostProcessingFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD351A0D2904E74A00C50D50 /* PostProcessingFragment.glsl */; };
 		DD351A102904E7E100C50D50 /* PostProcessing3DVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD351A0F2904E7E100C50D50 /* PostProcessing3DVertex.glsl */; };
+		DD351A1329056B1800C50D50 /* PointsVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD351A1229056B1800C50D50 /* PointsVertex.glsl */; };
+		DD351A1529056B4F00C50D50 /* PointsFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD351A1429056B4F00C50D50 /* PointsFragment.glsl */; };
+		DD351A1729056C8200C50D50 /* Points2Descriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD351A1629056C8200C50D50 /* Points2Descriptor.swift */; };
+		DD351A192905730800C50D50 /* GLPointsRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD351A182905730800C50D50 /* GLPointsRenderer.swift */; };
 		DDAABDF828F1E80400A1B170 /* GLProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABDF728F1E80400A1B170 /* GLProgram.swift */; };
 		DDAABDFB28F1E9EC00A1B170 /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDAABDFA28F1E9EC00A1B170 /* SimpleVertex.glsl */; };
 		DDAABDFF28F1EA5100A1B170 /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDAABDFE28F1EA5100A1B170 /* SimpleFragment.glsl */; };
@@ -67,6 +71,10 @@
 		DD351A0B2904E66400C50D50 /* GLBoxWithPanelRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLBoxWithPanelRenderer.swift; sourceTree = "<group>"; };
 		DD351A0D2904E74A00C50D50 /* PostProcessingFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessingFragment.glsl; sourceTree = "<group>"; };
 		DD351A0F2904E7E100C50D50 /* PostProcessing3DVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessing3DVertex.glsl; sourceTree = "<group>"; };
+		DD351A1229056B1800C50D50 /* PointsVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PointsVertex.glsl; sourceTree = "<group>"; };
+		DD351A1429056B4F00C50D50 /* PointsFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PointsFragment.glsl; sourceTree = "<group>"; };
+		DD351A1629056C8200C50D50 /* Points2Descriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points2Descriptor.swift; sourceTree = "<group>"; };
+		DD351A182905730800C50D50 /* GLPointsRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLPointsRenderer.swift; sourceTree = "<group>"; };
 		DDAABDF728F1E80400A1B170 /* GLProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLProgram.swift; sourceTree = "<group>"; };
 		DDAABDFA28F1E9EC00A1B170 /* SimpleVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleVertex.glsl; sourceTree = "<group>"; };
 		DDAABDFE28F1EA5100A1B170 /* SimpleFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleFragment.glsl; sourceTree = "<group>"; };
@@ -146,6 +154,15 @@
 			path = PostProcessing;
 			sourceTree = "<group>";
 		};
+		DD351A1129056AFE00C50D50 /* Points */ = {
+			isa = PBXGroup;
+			children = (
+				DD351A1229056B1800C50D50 /* PointsVertex.glsl */,
+				DD351A1429056B4F00C50D50 /* PointsFragment.glsl */,
+			);
+			path = Points;
+			sourceTree = "<group>";
+		};
 		DDAABDF628F1E7C000A1B170 /* GLCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +180,7 @@
 		DDAABDF928F1E9BD00A1B170 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				DD351A1129056AFE00C50D50 /* Points */,
 				DD21422A2901FF3500DF3575 /* PostProcessing */,
 				DDD8AEA828FCD2EE006C70C8 /* Obj3D */,
 				DDAABE0928F2422700A1B170 /* ObjWithTexture */,
@@ -196,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				DDAABE0428F2358900A1B170 /* GLRenderer.swift */,
+				DD351A182905730800C50D50 /* GLPointsRenderer.swift */,
 				DDAABE1328F36C3D00A1B170 /* GLObjWithTextureRenderer.swift */,
 				DDD8AEA428FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift */,
 				DD011D052900F95F0089C4F3 /* GLBoxPostProcessingRenderer.swift */,
@@ -227,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				DDD8AE9828FB088B006C70C8 /* GLMeshDescriptor.swift */,
+				DD351A1629056C8200C50D50 /* Points2Descriptor.swift */,
 				DDD8AE9C28FB0929006C70C8 /* Object2DWithColorDescriptor.swift */,
 				DD21422F290201CE00DF3575 /* Object2DWithTextureDescriptor.swift */,
 				DDD8AEA628FCD219006C70C8 /* Object3DWithColorDescriptor.swift */,
@@ -305,6 +325,7 @@
 				DD2142382903855D00DF3575 /* PostProcessingGaussianBlurFragment.glsl in Resources */,
 				DD21422E2901FFD400DF3575 /* PostProcessingInverceFragment.glsl in Resources */,
 				DD351A0E2904E74A00C50D50 /* PostProcessingFragment.glsl in Resources */,
+				DD351A1329056B1800C50D50 /* PointsVertex.glsl in Resources */,
 				DDD8AEAE28FCD42D006C70C8 /* Obj3DFragment.glsl in Resources */,
 				DD2142322902217B00DF3575 /* PostProcessingGrayscaleFragment.glsl in Resources */,
 				DDD8AEAA28FCD35E006C70C8 /* Obj3DVertex.glsl in Resources */,
@@ -312,6 +333,7 @@
 				DDD8AEA328FB0CAF006C70C8 /* ObjWithTextureVertex.glsl in Resources */,
 				DD214236290226B500DF3575 /* PostProcessingSobelFragment.glsl in Resources */,
 				DD033F0D28EBB49D00E8F466 /* LaunchScreen.storyboard in Resources */,
+				DD351A1529056B4F00C50D50 /* PointsFragment.glsl in Resources */,
 				DD351A102904E7E100C50D50 /* PostProcessing3DVertex.glsl in Resources */,
 				DDAABDFF28F1EA5100A1B170 /* SimpleFragment.glsl in Resources */,
 				DD033F0A28EBB49D00E8F466 /* Assets.xcassets in Resources */,
@@ -342,8 +364,10 @@
 				DD011D062900F95F0089C4F3 /* GLBoxPostProcessingRenderer.swift in Sources */,
 				DDAABE1628F36EA400A1B170 /* Renderers.swift in Sources */,
 				DDAABE0528F2358900A1B170 /* GLRenderer.swift in Sources */,
+				DD351A1729056C8200C50D50 /* Points2Descriptor.swift in Sources */,
 				DD033F0128EBB49B00E8F466 /* AppDelegate.swift in Sources */,
 				DDD8AEA528FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift in Sources */,
+				DD351A192905730800C50D50 /* GLPointsRenderer.swift in Sources */,
 				DD214230290201CE00DF3575 /* Object2DWithTextureDescriptor.swift in Sources */,
 				DDD8AE9528F89050006C70C8 /* GLMath.swift in Sources */,
 				DD21423C2904981400DF3575 /* GLBoxTwoPassGaussianBlurRenderer.swift in Sources */,

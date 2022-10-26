@@ -8,6 +8,17 @@
 import Foundation
 
 extension GLRenderer {
+  static var pointsRenderer: GLRenderer {
+    GLPointsRenderer(
+      program: GLProgram(
+        vertexShader: .pointsVertex,
+        fragmentShader: .pointsFragment,
+        attributes: [.position]
+      ),
+      mesh: .points
+    )
+  }
+
   static var simpleTriangleRenderer: GLRenderer {
     GLRenderer(
       program: GLProgram(
