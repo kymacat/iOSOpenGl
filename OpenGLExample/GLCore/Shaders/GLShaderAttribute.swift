@@ -15,4 +15,8 @@ enum GLShaderAttribute: String {
   case modelMatrix = "model"
   case viewMatrix = "view"
   case projectionMatrix = "proj"
+
+  case fingerPosition
+  case gravity
+  case speed
 }

@@ -9,8 +9,10 @@ import GLKit
 
 enum GLVertexAttributes: GLuint {
   case position
+  case origPosition
   case color
   case textureCoordinate
+  case velocity
 
   func glName() -> String {
     switch self {
@@ -18,8 +20,12 @@ enum GLVertexAttributes: GLuint {
       return "color"
     case .position:
       return "position"
+    case .origPosition:
+      return "origPosition"
     case .textureCoordinate:
       return "textCoord"
+    case .velocity:
+      return "velocity"
     }
   }
 }

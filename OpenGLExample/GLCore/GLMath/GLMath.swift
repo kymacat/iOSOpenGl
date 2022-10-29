@@ -21,14 +21,6 @@ extension GLKMatrix4 {
     ))
   }
 
-  mutating func glFloatPointer(callback: (UnsafePointer<GLfloat>) -> Void) {
-    withUnsafePointer(to: &self.m) {
-      $0.withMemoryRebound(to: GLfloat.self, capacity: 16) {
-        callback($0)
-      }
-    }
-  }
-
   // MARK: - View matrix
 
   init(eye: float3, center: float3, up: float3) {

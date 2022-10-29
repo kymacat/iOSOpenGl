@@ -14,6 +14,6 @@ class GLPointsRenderer: GLRenderer {
 
     glClearColor(0.25, 0.25, 0.25, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
-    glDrawArrays(GLenum(GL_POINTS), 0, GLsizei(mesh.vertices.count / 2))
+    glDrawArrays(GLenum(GL_POINTS), 0, mesh.verticesCount)
   }
 }

@@ -106,12 +106,12 @@ class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.modelMatrix.rawValue), 1, 0, $0)
     }
 
-    var view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
+    let view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
     view.glFloatPointer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.viewMatrix.rawValue), 1, 0, $0)
     }
 
-    var proj = GLKMatrix4(
+    let proj = GLKMatrix4(
       projectionFov: .pi / 2,
       near: 1,
       far: 10,

@@ -29,4 +29,7 @@ enum GLShader: String {
 
   case pointsVertex = "PointsVertex"
   case pointsFragment = "PointsFragment"
+
+  case gravityPointsVertex = "GravityPointsVertex"
+  case gravityPointsFragment = "GravityPointsFragment"
 }

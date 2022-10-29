@@ -182,5 +182,17 @@ extension GLRenderer {
       postProcessingMesh: .fullScreenTexture
     )
   }
+
+  static var gravityPointsRenderer: GLRenderer {
+    GLGravityPointsRenderer(
+      program: GLProgram(
+        vertexShader: .gravityPointsVertex,
+        fragmentShader: .gravityPointsFragment,
+        attributes: [.position, .velocity, .origPosition],
+        feedbackVaryings: [.outPosition, .outVelocity]
+      ),
+      mesh: .gravityPoints
+    )
+  }
 }
 

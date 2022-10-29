@@ -8,6 +8,8 @@
 import GLKit
 
 class Object3DWithTextureDescriptor: GLMeshDescriptor {
+  let stride = 5
+
   func setup() {
     glEnableVertexAttribArray(GLVertexAttributes.position.rawValue)
     glVertexAttribPointer(
@@ -15,7 +17,7 @@ class Object3DWithTextureDescriptor: GLMeshDescriptor {
       3,
       GLenum(GL_FLOAT),
       GLboolean(GL_FALSE),
-      GLsizei(5 * MemoryLayout<GLfloat>.stride),
+      GLsizei(stride * MemoryLayout<GLfloat>.stride),
       nil
     )
 
@@ -25,7 +27,7 @@ class Object3DWithTextureDescriptor: GLMeshDescriptor {
       2,
       GLenum(GL_FLOAT),
       GLboolean(GL_FALSE),
-      GLsizei(5 * MemoryLayout<GLfloat>.stride),
+      GLsizei(stride * MemoryLayout<GLfloat>.stride),
       UnsafeRawPointer(bitPattern: 3 * MemoryLayout<GLfloat>.stride)
     )
   }

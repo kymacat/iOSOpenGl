@@ -8,5 +8,6 @@
 import Foundation
 
 protocol GLMeshDescriptor {
+  var stride: Int { get }
   func setup()
 }

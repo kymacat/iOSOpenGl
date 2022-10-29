@@ -10,18 +10,11 @@ import GLKit
 
 class GLViewController: GLKViewController {
   private var context: EAGLContext?
-  private var renderer: GLRenderer = .pointsRenderer
+  private var renderer: GLRenderer = .gravityPointsRenderer
 
   override func viewDidLoad() {
     super.viewDidLoad()
     setupGL()
-
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap))
-    view.addGestureRecognizer(tapGesture)
-  }
-
-  @objc private func onTap() {
-    (renderer as? GLObjWithTextureRenderer)?.flipAroundX()
   }
 
   private func setupGL() {
@@ -36,6 +29,18 @@ class GLViewController: GLKViewController {
     }
 
     renderer.setup()
+  }
+
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    renderer.touchesBegan(touches, in: view)
+  }
+
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    renderer.touchesMoved(touches, in: view)
+  }
+
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    renderer.touchesEnded(touches, in: view)
   }
 }
 

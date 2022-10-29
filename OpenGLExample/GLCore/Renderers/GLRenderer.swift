@@ -30,4 +30,8 @@ class GLRenderer: NSObject, GLKViewControllerDelegate {
 
     glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
   }
+
+  func touchesBegan(_ touches: Set<UITouch>, in view: UIView) {}
+  func touchesMoved(_ touches: Set<UITouch>, in view: UIView) {}
+  func touchesEnded(_ touches: Set<UITouch>, in view: UIView) {}
 }

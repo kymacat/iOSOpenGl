@@ -17,10 +17,6 @@ class GLObjWithTextureRenderer: GLRenderer {
     super.init(program: program, mesh: mesh)
   }
 
-  func flipAroundX() {
-    flipAngle += 2 * .pi
-  }
-
   override func setup() {
     super.setup()
 
@@ -50,18 +46,18 @@ class GLObjWithTextureRenderer: GLRenderer {
 
     glUniform1f(glGetUniformLocation(program.glProgram, GLShaderAttribute.time.rawValue), time / 10)
 
-    var model = GLKMatrix4.identity.rotate(rotationX: flipAngle)
+    let model = GLKMatrix4.identity.rotate(rotationX: flipAngle)
     model.glFloatPointer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.modelMatrix.rawValue), 1, 0, $0)
     }
     flipAngle /= 1.1
 
-    var view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
+    let view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
     view.glFloatPointer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.viewMatrix.rawValue), 1, 0, $0)
     }
 
-    var proj = GLKMatrix4(
+    let proj = GLKMatrix4(
       projectionFov: .pi / 2,
       near: 1,
       far: 10,
@@ -73,5 +69,13 @@ class GLObjWithTextureRenderer: GLRenderer {
 
     glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
     glDisable(GLenum(GL_DEPTH_TEST))
+  }
+
+  override func touchesEnded(_ touches: Set<UITouch>, in view: UIView) {
+    flipAroundX()
+  }
+
+  private func flipAroundX() {
+    flipAngle += 2 * .pi
   }
 }

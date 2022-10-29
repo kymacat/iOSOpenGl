@@ -8,20 +8,22 @@
 import GLKit
 
 class GLMesh {
-  let vertices: [GLfloat]
+  let verticesData: [GLfloat]
   let indexes: [GLuint]
   let descriptor: GLMeshDescriptor
+
+  var verticesCount: GLsizei { GLsizei(verticesData.count / descriptor.stride) }
 
   private var vertexArrayObject: GLuint = 0
   private var vertexBufferObject: GLuint = 0
   private var elementBufferObject: GLuint = 0
 
   init(
-    vertices: [GLfloat],
+    verticesData: [GLfloat],
     indexes: [GLuint],
     descriptor: GLMeshDescriptor
   ) {
-    self.vertices = vertices
+    self.verticesData = verticesData
     self.indexes = indexes
     self.descriptor = descriptor
   }
@@ -40,8 +42,8 @@ class GLMesh {
     glBindBuffer(GLenum(GL_ARRAY_BUFFER), vertexBufferObject)
     glBufferData(
       GLenum(GL_ARRAY_BUFFER),
-      MemoryLayout<GLfloat>.stride * vertices.count,
-      vertices,
+      MemoryLayout<GLfloat>.stride * verticesData.count,
+      verticesData,
       GLenum(GL_STATIC_DRAW)
     )
 
@@ -59,13 +61,15 @@ class GLMesh {
 
   func prepareToDraw() {
     glBindVertexArray(vertexArrayObject)
+    glBindBuffer(GLenum(GL_ARRAY_BUFFER), vertexBufferObject)
+    glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), elementBufferObject)
   }
 }
 
 extension GLMesh {
   static var points: GLMesh {
     GLMesh(
-      vertices: [
+      verticesData: [
         -0.45,  0.45,
          0.45,  0.45,
          0.45, -0.45,
@@ -78,7 +82,7 @@ extension GLMesh {
 
   static var triangle: GLMesh {
     GLMesh(
-      vertices: [
+      verticesData: [
 //       x    y    r    g    b
         0.0, 0.5, 1.0, 0.0, 0.0,
         0.5, -0.5, 0.0, 1.0, 0.0,
@@ -93,7 +97,7 @@ extension GLMesh {
 
   static var rectangle: GLMesh {
     GLMesh(
-      vertices: [
+      verticesData: [
 //        x    y    r    g    b
         -0.5, 0.5, 1.0, 0.0, 0.0,
          0.5, 0.5, 0.0, 1.0, 0.0,
@@ -110,7 +114,7 @@ extension GLMesh {
 
   static var rectangleWithTexture: GLMesh {
     GLMesh(
-      vertices: [
+      verticesData: [
 //        x    y   z   texX  texY
         -0.5, 0.5, 0.0, 0.0, 0.0,
          0.5, 0.5, 0.0, 1.0, 0.0,
@@ -127,7 +131,7 @@ extension GLMesh {
 
   static var boxWithTexture: GLMesh {
     GLMesh(
-      vertices: [
+      verticesData: [
 //       x      y      z     texX  texY
         -0.5,   0.5,  -0.5,   0.0, 0.0,
          0.5,   0.5,  -0.5,   1.0, 0.0,
@@ -167,7 +171,7 @@ extension GLMesh {
 
   static var boxWithFloor: GLMesh {
     GLMesh(
-      vertices: [
+      verticesData: [
 //       Position         Color
         -0.5, -0.5, -0.5, 0.96, 0.79, 0.65,
         0.5, -0.5, -0.5, 0.8, 0.94, 0.9,
@@ -225,7 +229,7 @@ extension GLMesh {
 
   static var fullScreenTexture: GLMesh {
     GLMesh(
-      vertices: [
+      verticesData: [
         -1.0,  1.0,  0.0, 1.0,
          1.0,  1.0,  1.0, 1.0,
          1.0, -1.0,  1.0, 0.0,
@@ -236,6 +240,28 @@ extension GLMesh {
       ],
       indexes: [],
       descriptor: Object2DWithTextureDescriptor()
+    )
+  }
+
+  static var gravityPoints: GLMesh {
+    var verticesData = Array(repeating: GLfloat(0), count: 600)
+
+    for y in 0 ..< 10 {
+      for x in 0 ..< 10 {
+        let xPosition = 0.2 * GLfloat(x) - 0.9
+        let yPosition = 0.2 * GLfloat(y) - 0.9
+
+        verticesData[60 * y + 6 * x] = xPosition
+        verticesData[60 * y + 6 * x + 1] = yPosition
+        verticesData[60 * y + 6 * x + 4] = xPosition
+        verticesData[60 * y + 6 * x + 5] = yPosition
+      }
+    }
+
+    return GLMesh(
+      verticesData: verticesData,
+      indexes: [],
+      descriptor: GravityPointsDescriptor()
     )
   }
 }
