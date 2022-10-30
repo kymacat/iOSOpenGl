@@ -8,6 +8,23 @@
 import Foundation
 
 extension GLRenderer {
+  static let allRenderers: [GLRendererModel] = [
+    GLRendererModel(title: "Points renderer", buildClosure: { pointsRenderer }),
+    GLRendererModel(title: "Simple triangle renderer", buildClosure: { simpleTriangleRenderer }),
+    GLRendererModel(title: "Simple rectangle renderer", buildClosure: { simpleRectangleRenderer }),
+    GLRendererModel(title: "Textures transition renderer", buildClosure: { texturesMixRenderer }),
+    GLRendererModel(title: "Texture with water effect renderer", buildClosure: { textureWithWaterEffectRenderer }),
+    GLRendererModel(title: "Box with mirror floor renderer", buildClosure: { boxWithMirroringRenderer }),
+    GLRendererModel(title: "Box with inverce post processing renderer", buildClosure: { boxWithInvercePostProcessingRenderer }),
+    GLRendererModel(title: "Box with grayscale post processing renderer", buildClosure: { boxWithGrayscalePostProcessingRenderer }),
+    GLRendererModel(title: "Box with blur post processing renderer", buildClosure: { boxWithBlurPostProcessingRenderer }),
+    GLRendererModel(title: "Box with sobel post processing renderer", buildClosure: { boxWithSobelPostProcessingRenderer }),
+    GLRendererModel(title: "Box with two pass gaussian blur post processing renderer", buildClosure: { boxWithTwoPassGaussianBlurPostProcessingRenderer }),
+    GLRendererModel(title: "Box with mirror renderer", buildClosure: { boxWithPanelRenderer }),
+    GLRendererModel(title: "Gravity points renderer", buildClosure: { gravityPointsRenderer }),
+  ]
+
+
   static var pointsRenderer: GLRenderer {
     GLPointsRenderer(
       program: GLProgram(

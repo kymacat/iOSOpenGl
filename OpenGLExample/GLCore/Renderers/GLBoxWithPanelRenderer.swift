@@ -13,6 +13,8 @@ class GLBoxWithPanelRenderer: GLRenderer {
 
   private var time: Float = 0
   private var frameBuffer: GLuint = 0
+  private var texColorBuffer: GLuint = 0
+  private var rboDepthStencil: GLuint = 0
 
   init(
     program: GLProgram,
@@ -25,6 +27,12 @@ class GLBoxWithPanelRenderer: GLRenderer {
     super.init(program: program, mesh: mesh)
   }
 
+  deinit {
+    glDeleteFramebuffers(1, &frameBuffer)
+    glDeleteRenderbuffers(1, &rboDepthStencil)
+    glDeleteTextures(1, [texColorBuffer])
+  }
+
   override func setup() {
     super.setup()
     postProcessingProgram.setup()
@@ -35,8 +43,8 @@ class GLBoxWithPanelRenderer: GLRenderer {
     glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
 
     // Create texture to hold color buffer
-    var texColorBuffer: GLuint = 0
     glGenTextures(1, &texColorBuffer)
+    glActiveTexture(GLenum(GL_TEXTURE0))
     glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffer)
 
     let width = Int32(UIScreen.main.bounds.width * UIScreen.main.scale)
@@ -49,7 +57,6 @@ class GLBoxWithPanelRenderer: GLRenderer {
     glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffer, 0)
 
     // Create Renderbuffer Object to hold depth and stencil buffers
-    var rboDepthStencil: GLuint = 0
     glGenRenderbuffers(1, &rboDepthStencil)
     glBindRenderbuffer(GLenum(GL_RENDERBUFFER), rboDepthStencil)
     glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH24_STENCIL8), width, height)
@@ -76,7 +83,7 @@ class GLBoxWithPanelRenderer: GLRenderer {
     mesh.prepareToDraw()
     drawBox(view: mirrorView, proj: proj)
 
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), 2)
+    delegate?.bindDrawableFramebuffer()
     glClearColor(0.25, 0.25, 0.25, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
     postProcessingProgram.prepareToDraw()

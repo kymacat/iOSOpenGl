@@ -7,9 +7,15 @@
 
 import GLKit
 
+protocol GLRendererDelegate: AnyObject {
+  func bindDrawableFramebuffer()
+}
+
 class GLRenderer: NSObject, GLKViewControllerDelegate {
   let program: GLProgram
   let mesh: GLMesh
+
+  weak var delegate: GLRendererDelegate?
 
   init(program: GLProgram, mesh: GLMesh) {
     self.program = program

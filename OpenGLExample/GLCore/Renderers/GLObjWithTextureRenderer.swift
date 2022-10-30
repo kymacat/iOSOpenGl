@@ -52,7 +52,7 @@ class GLObjWithTextureRenderer: GLRenderer {
     }
     flipAngle /= 1.1
 
-    let view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
+    let view = GLKMatrix4(eye: [-1.0, -1.0, 1.0], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
     view.glFloatPointer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.viewMatrix.rawValue), 1, 0, $0)
     }

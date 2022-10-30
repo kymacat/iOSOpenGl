@@ -13,6 +13,8 @@ class GLBoxPostProcessingRenderer: GLRenderer {
 
   private var time: Float = 0
   private var frameBuffer: GLuint = 0
+  private var textureColorBuffer: GLuint = 0
+  private var rboDepthStencil: GLuint = 0
 
   init(
     program: GLProgram,
@@ -25,6 +27,12 @@ class GLBoxPostProcessingRenderer: GLRenderer {
     super.init(program: program, mesh: mesh)
   }
 
+  deinit {
+    glDeleteFramebuffers(1, &frameBuffer)
+    glDeleteRenderbuffers(1, &rboDepthStencil)
+    glDeleteTextures(1, [textureColorBuffer])
+  }
+
   override func setup() {
     super.setup()
     postProcessingProgram.setup()
@@ -35,9 +43,9 @@ class GLBoxPostProcessingRenderer: GLRenderer {
     glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
 
     // Create texture to hold color buffer
-    var texColorBuffer: GLuint = 0
-    glGenTextures(1, &texColorBuffer)
-    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffer)
+    glGenTextures(1, &textureColorBuffer)
+    glActiveTexture(GLenum(GL_TEXTURE0))
+    glBindTexture(GLenum(GL_TEXTURE_2D), textureColorBuffer)
 
     let width = Int32(UIScreen.main.bounds.width * UIScreen.main.scale)
     let height = Int32(UIScreen.main.bounds.height * UIScreen.main.scale)
@@ -46,10 +54,9 @@ class GLBoxPostProcessingRenderer: GLRenderer {
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR)
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
 
-    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffer, 0)
+    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), textureColorBuffer, 0)
 
     // Create Renderbuffer Object to hold depth and stencil buffers
-    var rboDepthStencil: GLuint = 0
     glGenRenderbuffers(1, &rboDepthStencil)
     glBindRenderbuffer(GLenum(GL_RENDERBUFFER), rboDepthStencil)
     glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH24_STENCIL8), width, height)
@@ -64,7 +71,7 @@ class GLBoxPostProcessingRenderer: GLRenderer {
     mesh.prepareToDraw()
     drawBox(containerSize: controller.view.bounds.size)
 
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), 2)
+    delegate?.bindDrawableFramebuffer()
     postProcessingProgram.prepareToDraw()
     postProcessingMesh.prepareToDraw()
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)

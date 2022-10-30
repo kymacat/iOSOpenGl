@@ -55,6 +55,10 @@
 		DDD8AEA728FCD219006C70C8 /* Object3DWithColorDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD8AEA628FCD219006C70C8 /* Object3DWithColorDescriptor.swift */; };
 		DDD8AEAA28FCD35E006C70C8 /* Obj3DVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDD8AEA928FCD35E006C70C8 /* Obj3DVertex.glsl */; };
 		DDD8AEAE28FCD42D006C70C8 /* Obj3DFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDD8AEAD28FCD42D006C70C8 /* Obj3DFragment.glsl */; };
+		DDEA70A6290E035600D9B92D /* RenderersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEA70A5290E035600D9B92D /* RenderersListViewController.swift */; };
+		DDEA70A9290E094800D9B92D /* RenderersListTableViewtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEA70A8290E094800D9B92D /* RenderersListTableViewtCell.swift */; };
+		DDEA70AB290E0EB900D9B92D /* GLRendererModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEA70AA290E0EB900D9B92D /* GLRendererModel.swift */; };
+		DDEA70AD290E110C00D9B92D /* RenderersListViewControllerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEA70AC290E110C00D9B92D /* RenderersListViewControllerOutput.swift */; };
 		DDF154FB2908BA1B0039D5C4 /* GravityPointsRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF154FA2908BA1B0039D5C4 /* GravityPointsRenderer.swift */; };
 		DDF154FE2908BA670039D5C4 /* GravityPointsVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDF154FD2908BA670039D5C4 /* GravityPointsVertex.glsl */; };
 		DDF155002908BB2C0039D5C4 /* GravityPointsFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDF154FF2908BB2C0039D5C4 /* GravityPointsFragment.glsl */; };
@@ -110,6 +114,10 @@
 		DDD8AEA628FCD219006C70C8 /* Object3DWithColorDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object3DWithColorDescriptor.swift; sourceTree = "<group>"; };
 		DDD8AEA928FCD35E006C70C8 /* Obj3DVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = Obj3DVertex.glsl; sourceTree = "<group>"; };
 		DDD8AEAD28FCD42D006C70C8 /* Obj3DFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = Obj3DFragment.glsl; sourceTree = "<group>"; };
+		DDEA70A5290E035600D9B92D /* RenderersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderersListViewController.swift; sourceTree = "<group>"; };
+		DDEA70A8290E094800D9B92D /* RenderersListTableViewtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderersListTableViewtCell.swift; sourceTree = "<group>"; };
+		DDEA70AA290E0EB900D9B92D /* GLRendererModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLRendererModel.swift; sourceTree = "<group>"; };
+		DDEA70AC290E110C00D9B92D /* RenderersListViewControllerOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderersListViewControllerOutput.swift; sourceTree = "<group>"; };
 		DDF154FA2908BA1B0039D5C4 /* GravityPointsRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityPointsRenderer.swift; sourceTree = "<group>"; };
 		DDF154FD2908BA670039D5C4 /* GravityPointsVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = GravityPointsVertex.glsl; sourceTree = "<group>"; };
 		DDF154FF2908BB2C0039D5C4 /* GravityPointsFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = GravityPointsFragment.glsl; sourceTree = "<group>"; };
@@ -148,6 +156,7 @@
 				DDAABDF628F1E7C000A1B170 /* GLCore */,
 				DD033F0028EBB49B00E8F466 /* AppDelegate.swift */,
 				DD033F0428EBB49B00E8F466 /* GLViewController.swift */,
+				DDEA70A7290E092C00D9B92D /* RenderersList */,
 				DDAABE1028F36AF900A1B170 /* Image.swift */,
 				DD033F0928EBB49D00E8F466 /* Assets.xcassets */,
 				DD033F0B28EBB49D00E8F466 /* LaunchScreen.storyboard */,
@@ -251,6 +260,7 @@
 				DD351A0B2904E66400C50D50 /* GLBoxWithPanelRenderer.swift */,
 				DDF154FA2908BA1B0039D5C4 /* GravityPointsRenderer.swift */,
 				DDAABE1528F36EA400A1B170 /* Renderers.swift */,
+				DDEA70AA290E0EB900D9B92D /* GLRendererModel.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -293,6 +303,16 @@
 				DDD8AEAD28FCD42D006C70C8 /* Obj3DFragment.glsl */,
 			);
 			path = Obj3D;
+			sourceTree = "<group>";
+		};
+		DDEA70A7290E092C00D9B92D /* RenderersList */ = {
+			isa = PBXGroup;
+			children = (
+				DDEA70AC290E110C00D9B92D /* RenderersListViewControllerOutput.swift */,
+				DDEA70A5290E035600D9B92D /* RenderersListViewController.swift */,
+				DDEA70A8290E094800D9B92D /* RenderersListTableViewtCell.swift */,
+			);
+			path = RenderersList;
 			sourceTree = "<group>";
 		};
 		DDF154FC2908BA3F0039D5C4 /* GravityPoints */ = {
@@ -405,16 +425,20 @@
 				DD351A0C2904E66500C50D50 /* GLBoxWithPanelRenderer.swift in Sources */,
 				DD21423A290491BC00DF3575 /* GLShaderAttribute.swift in Sources */,
 				DD011D062900F95F0089C4F3 /* GLBoxPostProcessingRenderer.swift in Sources */,
+				DDEA70AD290E110C00D9B92D /* RenderersListViewControllerOutput.swift in Sources */,
 				DDAABE1628F36EA400A1B170 /* Renderers.swift in Sources */,
 				DD7A8F5B290B62A100A03B79 /* GLFeedbackVaryings.swift in Sources */,
 				DD5CC0D3290CC0C900471A29 /* Array+Unsafe.swift in Sources */,
+				DDEA70A6290E035600D9B92D /* RenderersListViewController.swift in Sources */,
 				DDAABE0528F2358900A1B170 /* GLRenderer.swift in Sources */,
 				DD351A1729056C8200C50D50 /* Points2Descriptor.swift in Sources */,
 				DD5CC0D5290CC34700471A29 /* GLKMatrix4+Unsafe.swift in Sources */,
 				DD033F0128EBB49B00E8F466 /* AppDelegate.swift in Sources */,
 				DDD8AEA528FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift in Sources */,
+				DDEA70AB290E0EB900D9B92D /* GLRendererModel.swift in Sources */,
 				DD351A192905730800C50D50 /* GLPointsRenderer.swift in Sources */,
 				DD214230290201CE00DF3575 /* Object2DWithTextureDescriptor.swift in Sources */,
+				DDEA70A9290E094800D9B92D /* RenderersListTableViewtCell.swift in Sources */,
 				DDD8AE9528F89050006C70C8 /* GLMath.swift in Sources */,
 				DD21423C2904981400DF3575 /* GLBoxTwoPassGaussianBlurRenderer.swift in Sources */,
 				DDAABE1428F36C3D00A1B170 /* GLObjWithTextureRenderer.swift in Sources */,

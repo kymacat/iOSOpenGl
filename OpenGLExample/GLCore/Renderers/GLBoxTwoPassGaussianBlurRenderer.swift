@@ -14,6 +14,7 @@ class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
   private var time: Float = 0
   private var frameBuffers: [GLuint] = [0, 0]
   private var texColorBuffers: [GLuint] = [0, 0]
+  private var rboDepthStencil: GLuint = 0
 
   init(
     program: GLProgram,
@@ -24,6 +25,12 @@ class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
     self.postProcessingProgram = postProcessingProgram
     self.postProcessingMesh = postProcessingMesh
     super.init(program: program, mesh: mesh)
+  }
+
+  deinit {
+    glDeleteFramebuffers(2, &frameBuffers)
+    glDeleteRenderbuffers(1, &rboDepthStencil)
+    glDeleteTextures(2, &texColorBuffers)
   }
 
   override func setup() {
@@ -42,6 +49,7 @@ class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
 
     // Set up the first framebuffer's color buffer
     glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
+    glActiveTexture(GLenum(GL_TEXTURE0))
     glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[0])
 
     glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB, width, height, 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), nil)
@@ -61,7 +69,6 @@ class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
     // Create first Renderbuffer Object to hold depth and stencil buffers
     glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
 
-    var rboDepthStencil: GLuint = 0
     glGenRenderbuffers(1, &rboDepthStencil)
     glBindRenderbuffer(GLenum(GL_RENDERBUFFER), rboDepthStencil)
     glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH24_STENCIL8), width, height)
@@ -85,7 +92,7 @@ class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
     glUniform2f(textureOffsetUniform, 1.0 / 300.0, 0.0)
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
 
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), 3)
+    delegate?.bindDrawableFramebuffer()
     glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[1])
     postProcessingProgram.prepareToDraw()
     postProcessingMesh.prepareToDraw()
