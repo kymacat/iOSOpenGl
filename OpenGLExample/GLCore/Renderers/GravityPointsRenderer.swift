@@ -27,8 +27,8 @@ class GLGravityPointsRenderer: GLRenderer {
     program.prepareToDraw()
     mesh.prepareToDraw()
 
-    glUniform1f(glGetUniformLocation(program.glProgram, GLShaderAttribute.gravity.rawValue), 1.5)
-    glUniform1f(glGetUniformLocation(program.glProgram, GLShaderAttribute.speed.rawValue), 0.033)
+    glUniform1f(glGetUniformLocation(program.glProgram, GLShaderUniform.gravity.rawValue), 1.5)
+    glUniform1f(glGetUniformLocation(program.glProgram, GLShaderUniform.speed.rawValue), 0.033)
 
     var currPosition: float2 = [.infinity, .infinity]
     if let fingerPosition = fingerPosition {
@@ -39,7 +39,7 @@ class GLGravityPointsRenderer: GLRenderer {
     }
 
     glUniform2f(
-      glGetUniformLocation(program.glProgram, GLShaderAttribute.fingerPosition.rawValue),
+      glGetUniformLocation(program.glProgram, GLShaderUniform.fingerPosition.rawValue),
       currPosition.x,
       currPosition.y
     )

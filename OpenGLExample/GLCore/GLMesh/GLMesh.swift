@@ -243,6 +243,22 @@ extension GLMesh {
     )
   }
 
+  static var fullScreenRevercedTexture: GLMesh {
+    GLMesh(
+      verticesData: [
+        -1.0,  1.0,  0.0, 0.0,
+         1.0,  1.0,  1.0, 0.0,
+         1.0, -1.0,  1.0, 1.0,
+
+         1.0, -1.0,  1.0, 1.0,
+         -1.0, -1.0,  0.0, 1.0,
+         -1.0,  1.0,  0.0, 0.0
+      ],
+      indexes: [],
+      descriptor: Object2DWithTextureDescriptor()
+    )
+  }
+
   static var gravityPoints: GLMesh {
     var verticesData = Array(repeating: GLfloat(0), count: 600)
 

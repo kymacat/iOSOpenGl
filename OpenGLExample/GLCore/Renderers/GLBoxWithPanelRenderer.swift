@@ -100,34 +100,34 @@ class GLBoxWithPanelRenderer: GLRenderer {
   private func drawPanel(view: GLKMatrix4, proj: GLKMatrix4) {
     let model = GLKMatrix4.identity.rotate(rotationX: .pi / 2).translate(translation: [0, 2.5, 0])
     model.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderAttribute.modelMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
     }
 
     view.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderAttribute.viewMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.viewMatrix.rawValue), 1, 0, $0)
     }
 
     proj.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderAttribute.projectionMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.projectionMatrix.rawValue), 1, 0, $0)
     }
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
   }
 
   private func drawBox(view: GLKMatrix4, proj: GLKMatrix4) {
-    let colorLoc = glGetUniformLocation(program.glProgram, GLShaderAttribute.overrideColor.rawValue)
+    let colorLoc = glGetUniformLocation(program.glProgram, GLShaderUniform.overrideColor.rawValue)
     glUniform3f(colorLoc, 1.0, 1.0, 1.0)
 
     var model = GLKMatrix4.identity.rotate(rotationZ: time / 60)
     model.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.modelMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
     }
 
     view.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.viewMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.viewMatrix.rawValue), 1, 0, $0)
     }
 
     proj.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.projectionMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.projectionMatrix.rawValue), 1, 0, $0)
     }
 
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
@@ -149,7 +149,7 @@ class GLBoxWithPanelRenderer: GLRenderer {
 
     model = model.translate(translation: [0, 0, -1]).scale(scaling: [1, 1, -1])
     model.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.modelMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
     }
 
     glUniform3f(colorLoc, 0.3, 0.3, 0.3)

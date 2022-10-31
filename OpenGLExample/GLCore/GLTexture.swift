@@ -8,17 +8,40 @@
 import GLKit
 
 class GLTexture {
-  let image: CGImage
+  let image: UIImage
   let attribName: String
   let wrapX: GLint
   let wrapY: GLint
   let filter: GLint
 
+  var aspectRatio: GLfloat {
+    guard let cgImage = image.cgImage else { return 1 }
+    switch image.imageOrientation {
+    case .left, .right, .leftMirrored, .rightMirrored:
+      return GLfloat(cgImage.width) / GLfloat(cgImage.height)
+    default:
+      return GLfloat(cgImage.height) / GLfloat(cgImage.width)
+    }
+  }
+
+  var rotationAngle: GLfloat {
+    switch image.imageOrientation {
+    case .left, .leftMirrored:
+      return .pi / 2
+    case .right, .rightMirrored:
+      return -.pi / 2
+    case .down, .downMirrored:
+      return .pi
+    default:
+      return 0
+    }
+  }
+
   private(set) var texture: GLenum = 0
-  private(set) var name: GLuint = 0
+  private(set) var id: GLuint = 0
 
   init(
-    image: CGImage,
+    image: UIImage,
     attribName: String,
     wrapX: GLint = GL_CLAMP_TO_EDGE,
     wrapY: GLint = GL_CLAMP_TO_EDGE,
@@ -32,14 +55,16 @@ class GLTexture {
   }
 
   deinit {
-    glDeleteTextures(1, [name])
+    glDeleteTextures(1, [id])
   }
 
-  func setup(texture: GLenum, name: GLuint) {
+  func setup(texture: GLenum, id: GLuint) {
     self.texture = texture
-    self.name = name
+    self.id = id
 
-    guard let colorSpace = image.colorSpace else { return }
+    guard let image = image.cgImage,
+          let colorSpace = image.colorSpace
+    else { return }
 
     let width = GLsizei(image.width)
     let height = GLsizei(image.height)
@@ -60,7 +85,7 @@ class GLTexture {
     imageContext?.draw(image, in: CGRect(x: 0, y: 0, width: Int(width), height: Int(height)))
 
     glActiveTexture(texture)
-    glBindTexture(GLenum(GL_TEXTURE_2D), name)
+    glBindTexture(GLenum(GL_TEXTURE_2D), id)
     glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, width, height, 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), imageData)
 
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), filter)

@@ -8,20 +8,25 @@
 import Foundation
 
 extension GLRenderer {
+  static var initialRendererModel: GLRendererModel {
+    GLRendererModel(title: "Box", buildClosure: { boxWithMirroringRenderer })
+  }
+
   static let allRenderers: [GLRendererModel] = [
-    GLRendererModel(title: "Points renderer", buildClosure: { pointsRenderer }),
-    GLRendererModel(title: "Simple triangle renderer", buildClosure: { simpleTriangleRenderer }),
-    GLRendererModel(title: "Simple rectangle renderer", buildClosure: { simpleRectangleRenderer }),
-    GLRendererModel(title: "Textures transition renderer", buildClosure: { texturesMixRenderer }),
-    GLRendererModel(title: "Texture with water effect renderer", buildClosure: { textureWithWaterEffectRenderer }),
-    GLRendererModel(title: "Box with mirror floor renderer", buildClosure: { boxWithMirroringRenderer }),
-    GLRendererModel(title: "Box with inverce post processing renderer", buildClosure: { boxWithInvercePostProcessingRenderer }),
-    GLRendererModel(title: "Box with grayscale post processing renderer", buildClosure: { boxWithGrayscalePostProcessingRenderer }),
-    GLRendererModel(title: "Box with blur post processing renderer", buildClosure: { boxWithBlurPostProcessingRenderer }),
-    GLRendererModel(title: "Box with sobel post processing renderer", buildClosure: { boxWithSobelPostProcessingRenderer }),
-    GLRendererModel(title: "Box with two pass gaussian blur post processing renderer", buildClosure: { boxWithTwoPassGaussianBlurPostProcessingRenderer }),
-    GLRendererModel(title: "Box with mirror renderer", buildClosure: { boxWithPanelRenderer }),
-    GLRendererModel(title: "Gravity points renderer", buildClosure: { gravityPointsRenderer }),
+    GLRendererModel(title: "Points", buildClosure: { pointsRenderer }),
+    GLRendererModel(title: "Simple triangle", buildClosure: { simpleTriangleRenderer }),
+    GLRendererModel(title: "Simple rectangle", buildClosure: { simpleRectangleRenderer }),
+    GLRendererModel(title: "Textures picker", isImagePickerAvailable: true, buildClosure: { textureRenderer }),
+    GLRendererModel(title: "Textures transition", buildClosure: { texturesMixRenderer }),
+    GLRendererModel(title: "Texture with water effect", buildClosure: { textureWithWaterEffectRenderer }),
+    GLRendererModel(title: "Box", buildClosure: { boxWithMirroringRenderer }),
+    GLRendererModel(title: "Box with inverce", buildClosure: { boxWithInvercePostProcessingRenderer }),
+    GLRendererModel(title: "Box with grayscale", buildClosure: { boxWithGrayscalePostProcessingRenderer }),
+    GLRendererModel(title: "Box with blur", buildClosure: { boxWithBlurPostProcessingRenderer }),
+    GLRendererModel(title: "Box with sobel", buildClosure: { boxWithSobelPostProcessingRenderer }),
+    GLRendererModel(title: "Box with two pass gaussian blur", buildClosure: { boxWithTwoPassGaussianBlurPostProcessingRenderer }),
+    GLRendererModel(title: "Box with mirror", buildClosure: { boxWithPanelRenderer }),
+    GLRendererModel(title: "Gravity points", buildClosure: { gravityPointsRenderer }),
   ]
 
 
@@ -58,17 +63,29 @@ extension GLRenderer {
     )
   }
 
+  static var textureRenderer: GLRenderer {
+    GLTextureRenderer(
+      program: GLProgram(
+        vertexShader: .textureVertex,
+        fragmentShader: .textureFragment,
+        attributes: [.position, .textureCoordinate]
+      ),
+      mesh: .fullScreenRevercedTexture,
+      texture: GLTexture(image: Image.tiger, attribName: "text")
+    )
+  }
+
   static var texturesMixRenderer: GLRenderer {
     GLObjWithTextureRenderer(
       program: GLProgram(
-        vertexShader: .textureVertex,
+        vertexShader: .objWithTextureVertex,
         fragmentShader: .textureMixFragment,
         attributes: [.position, .textureCoordinate]
       ),
       mesh: .rectangleWithTexture,
       textures: [
-        GLTexture(image: Image.tiger.cgImage!, attribName: "firstTex"),
-        GLTexture(image: Image.duck.cgImage!, attribName: "secondTex")
+        GLTexture(image: Image.tiger, attribName: "firstTex"),
+        GLTexture(image: Image.duck, attribName: "secondTex")
       ]
     )
   }
@@ -76,13 +93,13 @@ extension GLRenderer {
   static var textureWithWaterEffectRenderer: GLRenderer {
     GLObjWithTextureRenderer(
       program: GLProgram(
-        vertexShader: .textureVertex,
+        vertexShader: .objWithTextureVertex,
         fragmentShader: .textureWithWaterEffect,
         attributes: [.position, .textureCoordinate]
       ),
       mesh: .rectangleWithTexture,
       textures: [
-        GLTexture(image: Image.duck.cgImage!, attribName: "tex")
+        GLTexture(image: Image.duck, attribName: "tex")
       ]
     )
   }

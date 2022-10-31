@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GLShaderAttribute: String {
+enum GLShaderUniform: String {
   case time
   case overrideColor
   case textureOffset = "texOffset"
@@ -19,4 +19,7 @@ enum GLShaderAttribute: String {
   case fingerPosition
   case gravity
   case speed
+
+  case screenAspectRatio
+  case textureAspectRatio
 }

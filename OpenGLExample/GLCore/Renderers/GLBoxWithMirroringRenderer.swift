@@ -22,17 +22,17 @@ class GLBoxWithMirroringRenderer: GLRenderer {
     glClearColor(0.25, 0.25, 0.25, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
 
-    let colorLoc = glGetUniformLocation(program.glProgram, GLShaderAttribute.overrideColor.rawValue)
+    let colorLoc = glGetUniformLocation(program.glProgram, GLShaderUniform.overrideColor.rawValue)
     glUniform3f(colorLoc, 1.0, 1.0, 1.0)
 
     var model = GLKMatrix4.identity.rotate(rotationZ: time / 60)
     model.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.modelMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
     }
 
     let view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
     view.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.viewMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.viewMatrix.rawValue), 1, 0, $0)
     }
 
     let proj = GLKMatrix4(
@@ -42,7 +42,7 @@ class GLBoxWithMirroringRenderer: GLRenderer {
       aspect: Float(containerSize.width / containerSize.height)
     )
     proj.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.projectionMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.projectionMatrix.rawValue), 1, 0, $0)
     }
 
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
@@ -64,7 +64,7 @@ class GLBoxWithMirroringRenderer: GLRenderer {
 
     model = model.translate(translation: [0, 0, -1]).scale(scaling: [1, 1, -1])
     model.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderAttribute.modelMatrix.rawValue), 1, 0, $0)
+      glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
     }
 
     glUniform3f(colorLoc, 0.3, 0.3, 0.3)

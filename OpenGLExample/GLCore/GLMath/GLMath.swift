@@ -89,6 +89,15 @@ extension GLKMatrix4 {
     ))
   }
 
+  func rotate(rotationY angle: Float) -> Self {
+    GLKMatrix4(.init(
+      m00:  cos(angle),   m01: m01, m02: sin(angle), m03: m03,
+      m10:  m10,          m11: m11, m12: m12,        m13: m13,
+      m20:  -sin(angle),  m21: m21, m22: cos(angle), m23: m23,
+      m30:  m30,          m31: m31, m32: m32,        m33: m33
+    ))
+  }
+
   // MARK: - Scale
 
   func scale(scaling: float3) -> Self {

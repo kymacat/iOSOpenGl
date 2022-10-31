@@ -19,7 +19,7 @@
 		DD214234290222B600DF3575 /* PostProcessingBlurFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD214233290222B600DF3575 /* PostProcessingBlurFragment.glsl */; };
 		DD214236290226B500DF3575 /* PostProcessingSobelFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD214235290226B500DF3575 /* PostProcessingSobelFragment.glsl */; };
 		DD2142382903855D00DF3575 /* PostProcessingGaussianBlurFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD2142372903855D00DF3575 /* PostProcessingGaussianBlurFragment.glsl */; };
-		DD21423A290491BC00DF3575 /* GLShaderAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214239290491BC00DF3575 /* GLShaderAttribute.swift */; };
+		DD21423A290491BC00DF3575 /* GLShaderUniform.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214239290491BC00DF3575 /* GLShaderUniform.swift */; };
 		DD21423C2904981400DF3575 /* GLBoxTwoPassGaussianBlurRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD21423B2904981400DF3575 /* GLBoxTwoPassGaussianBlurRenderer.swift */; };
 		DD351A0C2904E66500C50D50 /* GLBoxWithPanelRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD351A0B2904E66400C50D50 /* GLBoxWithPanelRenderer.swift */; };
 		DD351A0E2904E74A00C50D50 /* PostProcessingFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DD351A0D2904E74A00C50D50 /* PostProcessingFragment.glsl */; };
@@ -59,6 +59,9 @@
 		DDEA70A9290E094800D9B92D /* RenderersListTableViewtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEA70A8290E094800D9B92D /* RenderersListTableViewtCell.swift */; };
 		DDEA70AB290E0EB900D9B92D /* GLRendererModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEA70AA290E0EB900D9B92D /* GLRendererModel.swift */; };
 		DDEA70AD290E110C00D9B92D /* RenderersListViewControllerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEA70AC290E110C00D9B92D /* RenderersListViewControllerOutput.swift */; };
+		DDEA70AF290EE8FC00D9B92D /* GLTextureRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEA70AE290EE8FC00D9B92D /* GLTextureRenderer.swift */; };
+		DDEA70B2290EEA6F00D9B92D /* TextureVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDEA70B1290EEA6F00D9B92D /* TextureVertex.glsl */; };
+		DDEA70B4290EEA7F00D9B92D /* TextureFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDEA70B3290EEA7F00D9B92D /* TextureFragment.glsl */; };
 		DDF154FB2908BA1B0039D5C4 /* GravityPointsRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF154FA2908BA1B0039D5C4 /* GravityPointsRenderer.swift */; };
 		DDF154FE2908BA670039D5C4 /* GravityPointsVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDF154FD2908BA670039D5C4 /* GravityPointsVertex.glsl */; };
 		DDF155002908BB2C0039D5C4 /* GravityPointsFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDF154FF2908BB2C0039D5C4 /* GravityPointsFragment.glsl */; };
@@ -78,7 +81,7 @@
 		DD214233290222B600DF3575 /* PostProcessingBlurFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessingBlurFragment.glsl; sourceTree = "<group>"; };
 		DD214235290226B500DF3575 /* PostProcessingSobelFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessingSobelFragment.glsl; sourceTree = "<group>"; };
 		DD2142372903855D00DF3575 /* PostProcessingGaussianBlurFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessingGaussianBlurFragment.glsl; sourceTree = "<group>"; };
-		DD214239290491BC00DF3575 /* GLShaderAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLShaderAttribute.swift; sourceTree = "<group>"; };
+		DD214239290491BC00DF3575 /* GLShaderUniform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLShaderUniform.swift; sourceTree = "<group>"; };
 		DD21423B2904981400DF3575 /* GLBoxTwoPassGaussianBlurRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLBoxTwoPassGaussianBlurRenderer.swift; sourceTree = "<group>"; };
 		DD351A0B2904E66400C50D50 /* GLBoxWithPanelRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLBoxWithPanelRenderer.swift; sourceTree = "<group>"; };
 		DD351A0D2904E74A00C50D50 /* PostProcessingFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PostProcessingFragment.glsl; sourceTree = "<group>"; };
@@ -118,6 +121,9 @@
 		DDEA70A8290E094800D9B92D /* RenderersListTableViewtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderersListTableViewtCell.swift; sourceTree = "<group>"; };
 		DDEA70AA290E0EB900D9B92D /* GLRendererModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLRendererModel.swift; sourceTree = "<group>"; };
 		DDEA70AC290E110C00D9B92D /* RenderersListViewControllerOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderersListViewControllerOutput.swift; sourceTree = "<group>"; };
+		DDEA70AE290EE8FC00D9B92D /* GLTextureRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLTextureRenderer.swift; sourceTree = "<group>"; };
+		DDEA70B1290EEA6F00D9B92D /* TextureVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TextureVertex.glsl; sourceTree = "<group>"; };
+		DDEA70B3290EEA7F00D9B92D /* TextureFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TextureFragment.glsl; sourceTree = "<group>"; };
 		DDF154FA2908BA1B0039D5C4 /* GravityPointsRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityPointsRenderer.swift; sourceTree = "<group>"; };
 		DDF154FD2908BA670039D5C4 /* GravityPointsVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = GravityPointsVertex.glsl; sourceTree = "<group>"; };
 		DDF154FF2908BB2C0039D5C4 /* GravityPointsFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = GravityPointsFragment.glsl; sourceTree = "<group>"; };
@@ -217,6 +223,7 @@
 		DDAABDF928F1E9BD00A1B170 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				DDEA70B0290EEA4A00D9B92D /* Texture */,
 				DDF154FC2908BA3F0039D5C4 /* GravityPoints */,
 				DD351A1129056AFE00C50D50 /* Points */,
 				DD21422A2901FF3500DF3575 /* PostProcessing */,
@@ -224,7 +231,7 @@
 				DDAABE0928F2422700A1B170 /* ObjWithTexture */,
 				DDAABE0828F2421700A1B170 /* Simple */,
 				DDAABE0628F2395C00A1B170 /* GLShader.swift */,
-				DD214239290491BC00DF3575 /* GLShaderAttribute.swift */,
+				DD214239290491BC00DF3575 /* GLShaderUniform.swift */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -253,6 +260,7 @@
 			children = (
 				DDAABE0428F2358900A1B170 /* GLRenderer.swift */,
 				DD351A182905730800C50D50 /* GLPointsRenderer.swift */,
+				DDEA70AE290EE8FC00D9B92D /* GLTextureRenderer.swift */,
 				DDAABE1328F36C3D00A1B170 /* GLObjWithTextureRenderer.swift */,
 				DDD8AEA428FCCEFE006C70C8 /* GLBoxWithMirroringRenderer.swift */,
 				DD011D052900F95F0089C4F3 /* GLBoxPostProcessingRenderer.swift */,
@@ -313,6 +321,15 @@
 				DDEA70A8290E094800D9B92D /* RenderersListTableViewtCell.swift */,
 			);
 			path = RenderersList;
+			sourceTree = "<group>";
+		};
+		DDEA70B0290EEA4A00D9B92D /* Texture */ = {
+			isa = PBXGroup;
+			children = (
+				DDEA70B1290EEA6F00D9B92D /* TextureVertex.glsl */,
+				DDEA70B3290EEA7F00D9B92D /* TextureFragment.glsl */,
+			);
+			path = Texture;
 			sourceTree = "<group>";
 		};
 		DDF154FC2908BA3F0039D5C4 /* GravityPoints */ = {
@@ -391,11 +408,13 @@
 				DD2142322902217B00DF3575 /* PostProcessingGrayscaleFragment.glsl in Resources */,
 				DDD8AEAA28FCD35E006C70C8 /* Obj3DVertex.glsl in Resources */,
 				DD214234290222B600DF3575 /* PostProcessingBlurFragment.glsl in Resources */,
+				DDEA70B2290EEA6F00D9B92D /* TextureVertex.glsl in Resources */,
 				DDD8AEA328FB0CAF006C70C8 /* ObjWithTextureVertex.glsl in Resources */,
 				DD214236290226B500DF3575 /* PostProcessingSobelFragment.glsl in Resources */,
 				DD033F0D28EBB49D00E8F466 /* LaunchScreen.storyboard in Resources */,
 				DD351A1529056B4F00C50D50 /* PointsFragment.glsl in Resources */,
 				DD351A102904E7E100C50D50 /* PostProcessing3DVertex.glsl in Resources */,
+				DDEA70B4290EEA7F00D9B92D /* TextureFragment.glsl in Resources */,
 				DDF154FE2908BA670039D5C4 /* GravityPointsVertex.glsl in Resources */,
 				DDAABDFF28F1EA5100A1B170 /* SimpleFragment.glsl in Resources */,
 				DD033F0A28EBB49D00E8F466 /* Assets.xcassets in Resources */,
@@ -423,7 +442,7 @@
 				DDAABDF828F1E80400A1B170 /* GLProgram.swift in Sources */,
 				DD033F0528EBB49B00E8F466 /* GLViewController.swift in Sources */,
 				DD351A0C2904E66500C50D50 /* GLBoxWithPanelRenderer.swift in Sources */,
-				DD21423A290491BC00DF3575 /* GLShaderAttribute.swift in Sources */,
+				DD21423A290491BC00DF3575 /* GLShaderUniform.swift in Sources */,
 				DD011D062900F95F0089C4F3 /* GLBoxPostProcessingRenderer.swift in Sources */,
 				DDEA70AD290E110C00D9B92D /* RenderersListViewControllerOutput.swift in Sources */,
 				DDAABE1628F36EA400A1B170 /* Renderers.swift in Sources */,
@@ -445,6 +464,7 @@
 				DD5CC0D1290CC03200471A29 /* String+Unsafe.swift in Sources */,
 				DDAABE0F28F32FAD00A1B170 /* GLTexture.swift in Sources */,
 				DDAABE0128F2132F00A1B170 /* GLVertexAttributes.swift in Sources */,
+				DDEA70AF290EE8FC00D9B92D /* GLTextureRenderer.swift in Sources */,
 				DDD8AE9F28FB0AB4006C70C8 /* Object3DWithTextureDescriptor.swift in Sources */,
 				DDF154FB2908BA1B0039D5C4 /* GravityPointsRenderer.swift in Sources */,
 			);
@@ -594,7 +614,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -622,7 +642,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
