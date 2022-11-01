@@ -1,20 +1,80 @@
 //
-//  GLObjWithMirroringRenderer.swift
+//  GLBoxPostProcessingRenderer.swift
 //  OpenGLExample
 //
-//  Created by Vladislav Yandola on 17.10.2022.
+//  Created by Vladislav Yandola on 20.10.2022.
 //
 
 import GLKit
 
-class GLBoxWithMirroringRenderer: GLRenderer {
-  private var time: GLfloat = 0
+class BoxPostProcessingRenderer: GLRenderer {
+  private let postProcessingProgram: GLProgram
+  private let postProcessingMesh: GLMesh
+
+  private var time: Float = 0
+  private var frameBuffer: GLuint = 0
+  private var textureColorBuffer: GLuint = 0
+  private var rboDepthStencil: GLuint = 0
+
+  init(
+    program: GLProgram,
+    mesh: GLMesh,
+    postProcessingProgram: GLProgram,
+    postProcessingMesh: GLMesh
+  ) {
+    self.postProcessingProgram = postProcessingProgram
+    self.postProcessingMesh = postProcessingMesh
+    super.init(program: program, mesh: mesh)
+  }
+
+  deinit {
+    glDeleteFramebuffers(1, &frameBuffer)
+    glDeleteRenderbuffers(1, &rboDepthStencil)
+    glDeleteTextures(1, [textureColorBuffer])
+  }
+
+  override func setup() {
+    super.setup()
+    postProcessingProgram.setup(attributes: postProcessingMesh.descriptor.attrubutes)
+    postProcessingMesh.setup()
+
+    // Create framebuffer
+    glGenFramebuffers(1, &frameBuffer)
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
+
+    // Create texture to hold color buffer
+    glGenTextures(1, &textureColorBuffer)
+    glActiveTexture(GLenum(GL_TEXTURE0))
+    glBindTexture(GLenum(GL_TEXTURE_2D), textureColorBuffer)
+
+    let width = Int32(UIScreen.main.bounds.width * UIScreen.main.scale)
+    let height = Int32(UIScreen.main.bounds.height * UIScreen.main.scale)
+    glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB, width, height, 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), nil)
+
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR)
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
+
+    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), textureColorBuffer, 0)
+
+    // Create Renderbuffer Object to hold depth and stencil buffers
+    glGenRenderbuffers(1, &rboDepthStencil)
+    glBindRenderbuffer(GLenum(GL_RENDERBUFFER), rboDepthStencil)
+    glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH24_STENCIL8), width, height)
+    glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_DEPTH_STENCIL_ATTACHMENT), GLenum(GL_RENDERBUFFER), rboDepthStencil)
+  }
 
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
     time += 1
+
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
     program.prepareToDraw()
     mesh.prepareToDraw()
     drawBox(containerSize: controller.view.bounds.size)
+
+    delegate?.bindDrawableFramebuffer()
+    postProcessingProgram.prepareToDraw()
+    postProcessingMesh.prepareToDraw()
+    glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
   }
 
   private func drawBox(containerSize: CGSize) {

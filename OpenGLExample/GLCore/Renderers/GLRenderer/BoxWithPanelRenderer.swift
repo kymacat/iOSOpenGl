@@ -1,5 +1,5 @@
 //
-//  GLBoxTwoPassGaussianBlurRenderer.swift
+//  GLBoxWithPanelRenderer.swift
 //  OpenGLExample
 //
 //  Created by Vladislav Yandola on 23.10.2022.
@@ -7,13 +7,13 @@
 
 import GLKit
 
-class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
+class BoxWithPanelRenderer: GLRenderer {
   private let postProcessingProgram: GLProgram
   private let postProcessingMesh: GLMesh
 
   private var time: Float = 0
-  private var frameBuffers: [GLuint] = [0, 0]
-  private var texColorBuffers: [GLuint] = [0, 0]
+  private var frameBuffer: GLuint = 0
+  private var texColorBuffer: GLuint = 0
   private var rboDepthStencil: GLuint = 0
 
   init(
@@ -28,47 +28,35 @@ class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
   }
 
   deinit {
-    glDeleteFramebuffers(2, &frameBuffers)
+    glDeleteFramebuffers(1, &frameBuffer)
     glDeleteRenderbuffers(1, &rboDepthStencil)
-    glDeleteTextures(2, &texColorBuffers)
+    glDeleteTextures(1, [texColorBuffer])
   }
 
   override func setup() {
     super.setup()
-    postProcessingProgram.setup()
+    postProcessingProgram.setup(attributes: postProcessingMesh.descriptor.attrubutes)
     postProcessingMesh.setup()
 
     // Create framebuffer
-    glGenFramebuffers(2, &frameBuffers)
+    glGenFramebuffers(1, &frameBuffer)
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
 
     // Create texture to hold color buffer
-    glGenTextures(2, &texColorBuffers)
+    glGenTextures(1, &texColorBuffer)
+    glActiveTexture(GLenum(GL_TEXTURE0))
+    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffer)
 
     let width = Int32(UIScreen.main.bounds.width * UIScreen.main.scale)
     let height = Int32(UIScreen.main.bounds.height * UIScreen.main.scale)
-
-    // Set up the first framebuffer's color buffer
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
-    glActiveTexture(GLenum(GL_TEXTURE0))
-    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[0])
-
     glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB, width, height, 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), nil)
+
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR)
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
-    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffers[0], 0)
 
-    // Set up the second framebuffer's color buffer
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[1])
-    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[1])
+    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffer, 0)
 
-    glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB, width, height, 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), nil)
-    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR)
-    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
-    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffers[1], 0)
-
-    // Create first Renderbuffer Object to hold depth and stencil buffers
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
-
+    // Create Renderbuffer Object to hold depth and stencil buffers
     glGenRenderbuffers(1, &rboDepthStencil)
     glBindRenderbuffer(GLenum(GL_RENDERBUFFER), rboDepthStencil)
     glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH24_STENCIL8), width, height)
@@ -78,33 +66,54 @@ class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
     time += 1
 
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
+    let mirrorView = GLKMatrix4(eye: [0, 2.5, 0.5], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
+    let normalView = GLKMatrix4(eye: [1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
+    let proj = GLKMatrix4(
+      projectionFov: .pi / 2,
+      near: 1,
+      far: 10,
+      aspect: Float(controller.view.bounds.width / controller.view.bounds.height)
+    )
+
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
+    glClearColor(1.0, 1.0, 1.0, 1.0)
+    glEnable(GLenum(GL_DEPTH_TEST))
+    glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
     program.prepareToDraw()
     mesh.prepareToDraw()
-    drawBox(containerSize: controller.view.bounds.size)
-
-    let textureOffsetUniform = glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.textureOffset.rawValue)
-
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[1])
-    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[0])
-    postProcessingProgram.prepareToDraw()
-    postProcessingMesh.prepareToDraw()
-    glUniform2f(textureOffsetUniform, 1.0 / 300.0, 0.0)
-    glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
+    drawBox(view: mirrorView, proj: proj)
 
     delegate?.bindDrawableFramebuffer()
-    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[1])
+    glClearColor(0.25, 0.25, 0.25, 1.0)
+    glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
     postProcessingProgram.prepareToDraw()
     postProcessingMesh.prepareToDraw()
-    glUniform2f(textureOffsetUniform, 0.0, 1.0 / 300.0)
+    drawPanel(view: normalView, proj: proj)
+
+    program.prepareToDraw()
+    mesh.prepareToDraw()
+    drawBox(view: normalView, proj: proj)
+
+    glDisable(GLenum(GL_DEPTH_TEST))
+  }
+
+  private func drawPanel(view: GLKMatrix4, proj: GLKMatrix4) {
+    let model = GLKMatrix4.identity.rotate(rotationX: .pi / 2).translate(translation: [0, 2.5, 0])
+    model.glFloatPointer {
+      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
+    }
+
+    view.glFloatPointer {
+      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.viewMatrix.rawValue), 1, 0, $0)
+    }
+
+    proj.glFloatPointer {
+      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.projectionMatrix.rawValue), 1, 0, $0)
+    }
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
   }
 
-  private func drawBox(containerSize: CGSize) {
-    glEnable(GLenum(GL_DEPTH_TEST))
-    glClearColor(0.25, 0.25, 0.25, 1.0)
-    glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
-
+  private func drawBox(view: GLKMatrix4, proj: GLKMatrix4) {
     let colorLoc = glGetUniformLocation(program.glProgram, GLShaderUniform.overrideColor.rawValue)
     glUniform3f(colorLoc, 1.0, 1.0, 1.0)
 
@@ -113,17 +122,10 @@ class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
     }
 
-    let view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
     view.glFloatPointer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.viewMatrix.rawValue), 1, 0, $0)
     }
 
-    let proj = GLKMatrix4(
-      projectionFov: .pi / 2,
-      near: 1,
-      far: 10,
-      aspect: Float(containerSize.width / containerSize.height)
-    )
     proj.glFloatPointer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.projectionMatrix.rawValue), 1, 0, $0)
     }
@@ -154,7 +156,5 @@ class GLBoxTwoPassGaussianBlurRenderer: GLRenderer {
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
 
     glDisable(GLenum(GL_STENCIL_TEST))
-    glDisable(GLenum(GL_DEPTH_TEST))
   }
 }
-

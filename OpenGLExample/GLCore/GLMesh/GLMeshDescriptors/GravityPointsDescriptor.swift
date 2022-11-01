@@ -10,6 +10,12 @@ import GLKit
 class GravityPointsDescriptor: GLMeshDescriptor {
   let stride = 6
 
+  var attrubutes: [GLVertexAttributes] = [
+    GLVertexAttributes.position,
+    GLVertexAttributes.velocity,
+    GLVertexAttributes.origPosition
+  ]
+
   func setup() {
     glEnableVertexAttribArray(GLVertexAttributes.position.rawValue)
     glVertexAttribPointer(
@@ -43,8 +49,6 @@ class GravityPointsDescriptor: GLMeshDescriptor {
   }
 
   deinit {
-    glDisableVertexAttribArray(GLVertexAttributes.position.rawValue)
-    glDisableVertexAttribArray(GLVertexAttributes.velocity.rawValue)
-    glDisableVertexAttribArray(GLVertexAttributes.origPosition.rawValue)
+    attrubutes.forEach { glDisableVertexAttribArray($0.rawValue) }
   }
 }

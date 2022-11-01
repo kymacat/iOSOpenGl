@@ -11,7 +11,6 @@ import GLKit
 class GLProgram {
   private let vertexShaderName: String
   private let fragmentShaderName: String
-  private let attributes: [GLVertexAttributes]
   private let feedbackVaryings: [GLFeedbackVaryings]
 
   private(set) var glProgram: GLuint = 0
@@ -21,12 +20,10 @@ class GLProgram {
   init(
     vertexShader: GLShader,
     fragmentShader: GLShader,
-    attributes: [GLVertexAttributes],
     feedbackVaryings: [GLFeedbackVaryings] = []
   ) {
     self.vertexShaderName = vertexShader.rawValue
     self.fragmentShaderName = fragmentShader.rawValue
-    self.attributes = attributes
     self.feedbackVaryings = feedbackVaryings
   }
 
@@ -36,25 +33,23 @@ class GLProgram {
     glDeleteShader(vertexShader)
   }
 
-  func setup() {
-    compile()
+  func setup(attributes: [GLVertexAttributes]) {
+    compile(with: attributes)
   }
 
   func prepareToDraw() {
     glUseProgram(glProgram)
   }
 
-  private func compile() {
-    self.vertexShader = compileShader(name: vertexShaderName, type: GLenum(GL_VERTEX_SHADER))
-    self.fragmentShader = compileShader(name: fragmentShaderName, type: GLenum(GL_FRAGMENT_SHADER))
+  private func compile(with attributes: [GLVertexAttributes]) {
+    vertexShader = compileShader(name: vertexShaderName, type: GLenum(GL_VERTEX_SHADER))
+    fragmentShader = compileShader(name: fragmentShaderName, type: GLenum(GL_FRAGMENT_SHADER))
 
-    self.glProgram = glCreateProgram()
-    glAttachShader(glProgram, self.vertexShader)
-    glAttachShader(glProgram, self.fragmentShader)
+    glProgram = glCreateProgram()
+    glAttachShader(glProgram, vertexShader)
+    glAttachShader(glProgram, fragmentShader)
 
-    for attribute in attributes {
-      glBindAttribLocation(glProgram, attribute.rawValue, attribute.glName())
-    }
+    attributes.forEach { glBindAttribLocation(glProgram, $0.rawValue, $0.glName()) }
 
     let unsafePointer = feedbackVaryings.map(\.rawValue).cPoiners()
     glTransformFeedbackVaryings(glProgram, GLsizei(feedbackVaryings.count), unsafePointer, GLenum(GL_INTERLEAVED_ATTRIBS))

@@ -10,6 +10,11 @@ import GLKit
 class Object3DWithColorDescriptor: GLMeshDescriptor {
   let stride = 6
 
+  var attrubutes: [GLVertexAttributes] = [
+    GLVertexAttributes.position,
+    GLVertexAttributes.color
+  ]
+
   func setup() {
     glEnableVertexAttribArray(GLVertexAttributes.position.rawValue)
     glVertexAttribPointer(
@@ -33,7 +38,6 @@ class Object3DWithColorDescriptor: GLMeshDescriptor {
   }
 
   deinit {
-    glDisableVertexAttribArray(GLVertexAttributes.position.rawValue)
-    glDisableVertexAttribArray(GLVertexAttributes.color.rawValue)
+    attrubutes.forEach { glDisableVertexAttribArray($0.rawValue) }
   }
 }

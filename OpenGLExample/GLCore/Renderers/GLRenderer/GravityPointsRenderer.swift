@@ -7,7 +7,7 @@
 
 import GLKit
 
-class GLGravityPointsRenderer: GLRenderer {
+class GravityPointsRenderer: GLRenderer {
   private lazy var tboSize = mesh.verticesData.count * 4 / mesh.descriptor.stride
   private lazy var startedVertexData = mesh.verticesData
   private var fingerPosition: float2?

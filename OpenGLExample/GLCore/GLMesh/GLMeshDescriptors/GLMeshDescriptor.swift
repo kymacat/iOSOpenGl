@@ -9,5 +9,6 @@ import Foundation
 
 protocol GLMeshDescriptor {
   var stride: Int { get }
+  var attrubutes: [GLVertexAttributes] { get }
   func setup()
 }

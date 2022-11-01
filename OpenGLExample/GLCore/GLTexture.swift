@@ -9,19 +9,22 @@ import GLKit
 
 class GLTexture {
   let image: UIImage
-  let attribName: String
   let wrapX: GLint
   let wrapY: GLint
   let filter: GLint
 
-  var aspectRatio: GLfloat {
-    guard let cgImage = image.cgImage else { return 1 }
+  var imageSize: CGSize {
+    guard let cgImage = image.cgImage else { return .zero }
     switch image.imageOrientation {
     case .left, .right, .leftMirrored, .rightMirrored:
-      return GLfloat(cgImage.width) / GLfloat(cgImage.height)
+      return CGSize(width: cgImage.height, height: cgImage.width)
     default:
-      return GLfloat(cgImage.height) / GLfloat(cgImage.width)
+      return CGSize(width: cgImage.width, height: cgImage.height)
     }
+  }
+
+  var aspectRatio: GLfloat {
+    GLfloat(imageSize.width / imageSize.height)
   }
 
   var rotationAngle: GLfloat {
@@ -42,13 +45,11 @@ class GLTexture {
 
   init(
     image: UIImage,
-    attribName: String,
     wrapX: GLint = GL_CLAMP_TO_EDGE,
     wrapY: GLint = GL_CLAMP_TO_EDGE,
     filter: GLint = GL_NEAREST
   ) {
     self.image = image
-    self.attribName = attribName
     self.wrapX = wrapX
     self.wrapY = wrapY
     self.filter = filter

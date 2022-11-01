@@ -7,7 +7,7 @@
 
 import GLKit
 
-class GLPointsRenderer: GLRenderer {
+class PointsRenderer: GLRenderer {
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
     program.prepareToDraw()
     mesh.prepareToDraw()

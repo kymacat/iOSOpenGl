@@ -20,6 +20,11 @@ enum GLShaderUniform: String {
   case gravity
   case speed
 
+  case isPortrait
   case screenAspectRatio
   case textureAspectRatio
+
+  static func texture(_ index: Int) -> String {
+    "texture\(index)"
+  }
 }

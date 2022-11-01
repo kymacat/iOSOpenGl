@@ -7,10 +7,10 @@
 
 import GLKit
 
-class GLObjWithTextureRenderer: GLRenderer {
+class ObjWithTextureRenderer: GLRenderer {
   private var flipAngle: GLfloat = 0
   private var time: GLfloat = 0
-  private let textures: [GLTexture]
+  private var textures: [GLTexture]
 
   init(program: GLProgram, mesh: GLMesh, textures: [GLTexture]) {
     self.textures = textures
@@ -19,7 +19,10 @@ class GLObjWithTextureRenderer: GLRenderer {
 
   override func setup() {
     super.setup()
+    setupTextures()
+  }
 
+  private func setupTextures() {
     var textureNames = Array(repeating: GLuint(0), count: textures.count)
     glGenTextures(GLsizei(textures.count), &textureNames)
 
@@ -42,7 +45,9 @@ class GLObjWithTextureRenderer: GLRenderer {
     glClearColor(0.25, 0.25, 0.25, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
 
-    textures.forEach { glUniform1i(glGetUniformLocation(program.glProgram, $0.attribName), GLint($0.id)) }
+    textures.enumerated().forEach {
+      glUniform1i(glGetUniformLocation(program.glProgram, GLShaderUniform.texture($0.offset)), GLint($0.element.id))
+    }
 
     glUniform1f(glGetUniformLocation(program.glProgram, GLShaderUniform.time.rawValue), time / 10)
 
@@ -77,5 +82,10 @@ class GLObjWithTextureRenderer: GLRenderer {
 
   private func flipAroundX() {
     flipAngle += 2 * .pi
+  }
+
+  override func changeTextures(_ textures: [GLTexture]) {
+    self.textures = textures
+    setupTextures()
   }
 }

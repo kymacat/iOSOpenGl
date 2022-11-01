@@ -23,7 +23,7 @@ class GLRenderer: NSObject, GLKViewControllerDelegate {
   }
 
   func setup() {
-    program.setup()
+    program.setup(attributes: mesh.descriptor.attrubutes)
     mesh.setup()
   }
 
@@ -42,5 +42,5 @@ class GLRenderer: NSObject, GLKViewControllerDelegate {
   func touchesBegan(_ touches: Set<UITouch>, in view: UIView) {}
   func touchesMoved(_ touches: Set<UITouch>, in view: UIView) {}
   func touchesEnded(_ touches: Set<UITouch>, in view: UIView) {}
-  func changeTextures(with images: [UIImage]) {}
+  func changeTextures(_ textures: [GLTexture]) {}
 }

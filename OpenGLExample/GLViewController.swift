@@ -11,6 +11,7 @@ import PhotosUI
 
 class GLViewController: GLKViewController {
   private var context: EAGLContext?
+  private var rendererModel = GLRenderer.initialRendererModel
   private var renderer: GLRenderer?
 
   private lazy var settingsButton: UIButton = {
@@ -48,10 +49,11 @@ class GLViewController: GLKViewController {
       view.drawableStencilFormat = .format8
     }
 
-    setRenderer(rendererModel: GLRenderer.initialRendererModel)
+    setRenderer(rendererModel: rendererModel)
   }
 
   private func setRenderer(rendererModel: GLRendererModel) {
+    self.rendererModel = rendererModel
     renderer = rendererModel.buildClosure()
     renderer?.delegate = self
     delegate = renderer
@@ -65,10 +67,10 @@ class GLViewController: GLKViewController {
     view.addSubview(imagePickerButton)
 
     NSLayoutConstraint.activate([
-      settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
       settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
 
-      imagePickerButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      imagePickerButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
       imagePickerButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24)
     ])
   }
@@ -84,6 +86,7 @@ class GLViewController: GLKViewController {
   @objc private func imagePickerButtonTapped() {
     var config = PHPickerConfiguration()
     config.filter = .images
+    config.selectionLimit = rendererModel.imagePickerMaxImages
 
     let pickerController = PHPickerViewController(configuration: config)
     pickerController.delegate = self
@@ -127,7 +130,7 @@ extension GLViewController: PHPickerViewControllerDelegate {
   func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
     let group = DispatchGroup()
 
-    var images: [UIImage] = []
+    var textures: [GLTexture] = []
 
     results.map(\.itemProvider)
       .filter { $0.canLoadObject(ofClass: UIImage.self) }
@@ -138,13 +141,13 @@ extension GLViewController: PHPickerViewControllerDelegate {
             group.leave()
             return
           }
-          images.append(image)
+          textures.append(GLTexture(image: image))
           group.leave()
         }
         group.wait()
       }
 
-    renderer?.changeTextures(with: images)
+    renderer?.changeTextures(textures)
     picker.dismiss(animated: true)
   }
 }

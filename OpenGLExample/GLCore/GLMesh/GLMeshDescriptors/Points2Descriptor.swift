@@ -10,6 +10,10 @@ import GLKit
 class Points2DDescriptor: GLMeshDescriptor {
   let stride = 2
 
+  var attrubutes: [GLVertexAttributes] = [
+    GLVertexAttributes.position
+  ]
+
   func setup() {
     glEnableVertexAttribArray(GLVertexAttributes.position.rawValue)
     glVertexAttribPointer(
@@ -23,6 +27,6 @@ class Points2DDescriptor: GLMeshDescriptor {
   }
 
   deinit {
-    glDisableVertexAttribArray(GLVertexAttributes.position.rawValue)
+    attrubutes.forEach { glDisableVertexAttribArray($0.rawValue) }
   }
 }

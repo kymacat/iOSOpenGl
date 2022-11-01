@@ -10,6 +10,11 @@ import GLKit
 class Object2DWithTextureDescriptor: GLMeshDescriptor {
   let stride = 4
 
+  var attrubutes: [GLVertexAttributes] = [
+    GLVertexAttributes.position,
+    GLVertexAttributes.textureCoordinate
+  ]
+
   func setup() {
     glEnableVertexAttribArray(GLVertexAttributes.position.rawValue)
     glVertexAttribPointer(
@@ -33,7 +38,6 @@ class Object2DWithTextureDescriptor: GLMeshDescriptor {
   }
 
   deinit {
-    glDisableVertexAttribArray(GLVertexAttributes.position.rawValue)
-    glDisableVertexAttribArray(GLVertexAttributes.textureCoordinate.rawValue)
+    attrubutes.forEach { glDisableVertexAttribArray($0.rawValue) }
   }
 }
