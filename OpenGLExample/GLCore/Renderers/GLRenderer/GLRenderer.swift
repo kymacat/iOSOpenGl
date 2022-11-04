@@ -12,14 +12,19 @@ protocol GLRendererDelegate: AnyObject {
 }
 
 class GLRenderer: NSObject, GLKViewControllerDelegate {
-  let program: GLProgram
-  let mesh: GLMesh
+  private(set) var program: GLProgram
+  private(set) var mesh: GLMesh
 
   weak var delegate: GLRendererDelegate?
 
   init(program: GLProgram, mesh: GLMesh) {
     self.program = program
     self.mesh = mesh
+  }
+
+  func changeProgram(new program: GLProgram) {
+    self.program = program
+    program.setup(attributes: mesh.descriptor.attrubutes)
   }
 
   func setup() {

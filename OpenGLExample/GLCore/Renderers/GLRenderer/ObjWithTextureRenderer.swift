@@ -57,7 +57,7 @@ class ObjWithTextureRenderer: GLRenderer {
     }
     flipAngle /= 1.1
 
-    let view = GLKMatrix4(eye: [-1.0, -1.0, 1.0], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
+    let view = GLKMatrix4(eye: [1.0, -1.0, 1.0], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
     view.glFloatPointer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.viewMatrix.rawValue), 1, 0, $0)
     }
@@ -85,6 +85,7 @@ class ObjWithTextureRenderer: GLRenderer {
   }
 
   override func changeTextures(_ textures: [GLTexture]) {
+    guard !textures.isEmpty else { return }
     self.textures = textures
     setupTextures()
   }

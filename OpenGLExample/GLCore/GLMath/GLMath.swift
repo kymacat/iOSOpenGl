@@ -23,8 +23,8 @@ extension GLKMatrix4 {
 
   // MARK: - View matrix
 
-  init(eye: float3, center: float3, up: float3) {
-    let z = normalize(center - eye)
+  init(eye: float3, center: float3, up: float3, lhs: Bool = false) {
+    let z = lhs ? normalize(center - eye) : normalize(center + eye)
     let x = normalize(cross(up, z))
     let y = cross(z, x)
 
@@ -42,7 +42,7 @@ extension GLKMatrix4 {
 
   // MARK: - Projection matrix
 
-  init(projectionFov fov: Float, near: Float, far: Float, aspect: Float, lhs: Bool = true) {
+  init(projectionFov fov: Float, near: Float, far: Float, aspect: Float, lhs: Bool = false) {
     let y = 1 / tan(fov * 0.5)
     let x = y / aspect
     let z = lhs ? far / (far - near) : far / (near - far)

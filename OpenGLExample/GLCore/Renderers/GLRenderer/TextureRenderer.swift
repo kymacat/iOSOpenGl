@@ -39,22 +39,15 @@ class TextureRenderer: GLRenderer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
     }
 
-    let isPortrait = controller.view.bounds.height > controller.view.bounds.width
-    glUniform1i(glGetUniformLocation(program.glProgram, GLShaderUniform.isPortrait.rawValue), isPortrait ? 1 : 0)
-
-    let textureAspectRatio = isPortrait ? pow(texture.aspectRatio, -1) : texture.aspectRatio
-    var screenAspectRatio = GLfloat(controller.view.bounds.width / controller.view.bounds.height)
-    if !isPortrait { screenAspectRatio = pow(screenAspectRatio, -1) }
-
     glUniform1f(
       glGetUniformLocation(program.glProgram, GLShaderUniform.textureAspectRatio.rawValue),
-      textureAspectRatio
+      texture.aspectRatio
     )
     glUniform1f(
       glGetUniformLocation(program.glProgram, GLShaderUniform.screenAspectRatio.rawValue),
-      screenAspectRatio
+      GLfloat(controller.view.bounds.width / controller.view.bounds.height)
     )
-    glDrawArrays(GLenum(GL_TRIANGLES), 0, mesh.verticesCount)
+    glDrawElements(GLenum(GL_TRIANGLES), GLsizei(mesh.indexes.count), GLenum(GL_UNSIGNED_INT), nil)
   }
 
   override func changeTextures(_ textures: [GLTexture]) {

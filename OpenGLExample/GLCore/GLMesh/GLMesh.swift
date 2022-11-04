@@ -129,46 +129,6 @@ extension GLMesh {
     )
   }
 
-  static var boxWithTexture: GLMesh {
-    GLMesh(
-      verticesData: [
-//       x      y      z     texX  texY
-        -0.5,   0.5,  -0.5,   0.0, 0.0,
-         0.5,   0.5,  -0.5,   1.0, 0.0,
-         0.5,   -0.5, -0.5,   1.0, 1.0,
-         -0.5,  -0.5, -0.5,   0.0, 1.0,
-
-         -0.5,  0.5,  0.5,    0.0, 0.0,
-         0.5,  0.5,  0.5,    1.0, 0.0,
-         0.5,  -0.5, 0.5,    1.0, 1.0,
-         -0.5, -0.5, 0.5,    0.0, 1.0
-      ],
-      indexes: [
-        // bottom
-        0, 1, 2,
-        2, 3, 0,
-
-        // sides
-        1, 5, 2,
-        5, 6, 2,
-
-        1, 5, 0,
-        5, 4, 0,
-
-        0, 4, 7,
-        7, 3, 0,
-
-        3, 7, 2,
-        2, 6, 7,
-
-        //top
-        4, 5, 6,
-        6, 7, 4
-      ],
-      descriptor: Object3DWithTextureDescriptor()
-    )
-  }
-
   static var boxWithFloor: GLMesh {
     GLMesh(
       verticesData: [
@@ -249,12 +209,12 @@ extension GLMesh {
         -1.0,  1.0,  0.0, 0.0,
          1.0,  1.0,  1.0, 0.0,
          1.0, -1.0,  1.0, 1.0,
-
-         1.0, -1.0,  1.0, 1.0,
-         -1.0, -1.0,  0.0, 1.0,
-         -1.0,  1.0,  0.0, 0.0
+         -1.0, -1.0,  0.0, 1.0
       ],
-      indexes: [],
+      indexes: [
+        0, 1, 2,
+        0, 2, 3
+      ],
       descriptor: Object2DWithTextureDescriptor()
     )
   }

@@ -20,7 +20,6 @@ enum GLShaderUniform: String {
   case gravity
   case speed
 
-  case isPortrait
   case screenAspectRatio
   case textureAspectRatio
 
