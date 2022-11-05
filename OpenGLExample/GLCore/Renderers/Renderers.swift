@@ -22,9 +22,9 @@ extension GLRenderer {
     GLRendererModel(title: "Box", buildClosure: { boxWithMirroringRenderer }),
     GLRendererModel(title: "Box with inverce", buildClosure: { boxWithInvercePostProcessingRenderer }),
     GLRendererModel(title: "Box with grayscale", buildClosure: { boxWithGrayscalePostProcessingRenderer }),
-    GLRendererModel(title: "Box with blur", buildClosure: { boxWithBlurPostProcessingRenderer }),
-    GLRendererModel(title: "Box with sobel", buildClosure: { boxWithSobelPostProcessingRenderer }),
-    GLRendererModel(title: "Box with two pass gaussian blur", buildClosure: { boxWithTwoPassGaussianBlurPostProcessingRenderer }),
+    GLRendererModel(title: "Box with blur", isSensitivitySliderAvailable: true, buildClosure: { boxWithBlurPostProcessingRenderer }),
+    GLRendererModel(title: "Box with sobel", isSensitivitySliderAvailable: true, buildClosure: { boxWithSobelPostProcessingRenderer }),
+    GLRendererModel(title: "Box with two pass gaussian blur", isSensitivitySliderAvailable: true, buildClosure: { boxWithTwoPassGaussianBlurPostProcessingRenderer }),
     GLRendererModel(title: "Box with mirror", buildClosure: { boxWithPanelRenderer }),
     GLRendererModel(title: "Gravity points", buildClosure: { gravityPointsRenderer }),
   ]

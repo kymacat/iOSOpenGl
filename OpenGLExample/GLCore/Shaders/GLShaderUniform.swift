@@ -26,4 +26,6 @@ enum GLShaderUniform: String {
   static func texture(_ index: Int) -> String {
     "texture\(index)"
   }
+
+  case sensitivity
 }

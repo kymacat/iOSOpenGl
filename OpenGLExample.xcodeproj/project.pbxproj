@@ -46,6 +46,7 @@
 		DDAABE1428F36C3D00A1B170 /* ObjWithTextureRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE1328F36C3D00A1B170 /* ObjWithTextureRenderer.swift */; };
 		DDAABE1628F36EA400A1B170 /* Renderers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAABE1528F36EA400A1B170 /* Renderers.swift */; };
 		DDAABE1828F3742100A1B170 /* TextureWithWaterEffectFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = DDAABE1728F3742100A1B170 /* TextureWithWaterEffectFragment.glsl */; };
+		DDBF68A729162AD90026BB8E /* GLRendererDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBF68A629162AD90026BB8E /* GLRendererDelegate.swift */; };
 		DDD8AE9528F89050006C70C8 /* GLMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD8AE9428F89050006C70C8 /* GLMath.swift */; };
 		DDD8AE9928FB088B006C70C8 /* GLMeshDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD8AE9828FB088B006C70C8 /* GLMeshDescriptor.swift */; };
 		DDD8AE9D28FB0929006C70C8 /* Object2DWithColorDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD8AE9C28FB0929006C70C8 /* Object2DWithColorDescriptor.swift */; };
@@ -108,6 +109,7 @@
 		DDAABE1328F36C3D00A1B170 /* ObjWithTextureRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjWithTextureRenderer.swift; sourceTree = "<group>"; };
 		DDAABE1528F36EA400A1B170 /* Renderers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderers.swift; sourceTree = "<group>"; };
 		DDAABE1728F3742100A1B170 /* TextureWithWaterEffectFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TextureWithWaterEffectFragment.glsl; sourceTree = "<group>"; };
+		DDBF68A629162AD90026BB8E /* GLRendererDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLRendererDelegate.swift; sourceTree = "<group>"; };
 		DDD8AE9428F89050006C70C8 /* GLMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLMath.swift; sourceTree = "<group>"; };
 		DDD8AE9828FB088B006C70C8 /* GLMeshDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLMeshDescriptor.swift; sourceTree = "<group>"; };
 		DDD8AE9C28FB0929006C70C8 /* Object2DWithColorDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object2DWithColorDescriptor.swift; sourceTree = "<group>"; };
@@ -264,6 +266,21 @@
 			path = Renderers;
 			sourceTree = "<group>";
 		};
+		DDBF68A329162AA90026BB8E /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				DD351A182905730800C50D50 /* PointsRenderer.swift */,
+				DDEA70AE290EE8FC00D9B92D /* TextureRenderer.swift */,
+				DDAABE1328F36C3D00A1B170 /* ObjWithTextureRenderer.swift */,
+				DDD8AEA428FCCEFE006C70C8 /* BoxWithMirroringRenderer.swift */,
+				DD011D052900F95F0089C4F3 /* BoxPostProcessingRenderer.swift */,
+				DD21423B2904981400DF3575 /* BoxTwoPassGaussianBlurRenderer.swift */,
+				DD351A0B2904E66400C50D50 /* BoxWithPanelRenderer.swift */,
+				DDF154FA2908BA1B0039D5C4 /* GravityPointsRenderer.swift */,
+			);
+			path = Renderers;
+			sourceTree = "<group>";
+		};
 		DDD8AE9328F89028006C70C8 /* GLMath */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,15 +344,9 @@
 		DDEA70B52910AF7000D9B92D /* GLRenderer */ = {
 			isa = PBXGroup;
 			children = (
+				DDBF68A629162AD90026BB8E /* GLRendererDelegate.swift */,
 				DDAABE0428F2358900A1B170 /* GLRenderer.swift */,
-				DD351A182905730800C50D50 /* PointsRenderer.swift */,
-				DDEA70AE290EE8FC00D9B92D /* TextureRenderer.swift */,
-				DDAABE1328F36C3D00A1B170 /* ObjWithTextureRenderer.swift */,
-				DDD8AEA428FCCEFE006C70C8 /* BoxWithMirroringRenderer.swift */,
-				DD011D052900F95F0089C4F3 /* BoxPostProcessingRenderer.swift */,
-				DD21423B2904981400DF3575 /* BoxTwoPassGaussianBlurRenderer.swift */,
-				DD351A0B2904E66400C50D50 /* BoxWithPanelRenderer.swift */,
-				DDF154FA2908BA1B0039D5C4 /* GravityPointsRenderer.swift */,
+				DDBF68A329162AA90026BB8E /* Renderers */,
 			);
 			path = GLRenderer;
 			sourceTree = "<group>";
@@ -471,6 +482,7 @@
 				DDAABE1428F36C3D00A1B170 /* ObjWithTextureRenderer.swift in Sources */,
 				DD5CC0D1290CC03200471A29 /* String+Unsafe.swift in Sources */,
 				DDAABE0F28F32FAD00A1B170 /* GLTexture.swift in Sources */,
+				DDBF68A729162AD90026BB8E /* GLRendererDelegate.swift in Sources */,
 				DDAABE0128F2132F00A1B170 /* GLVertexAttributes.swift in Sources */,
 				DDEA70AF290EE8FC00D9B92D /* TextureRenderer.swift in Sources */,
 				DDD8AE9F28FB0AB4006C70C8 /* Object3DWithTextureDescriptor.swift in Sources */,

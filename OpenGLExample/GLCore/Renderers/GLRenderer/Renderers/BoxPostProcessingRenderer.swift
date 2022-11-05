@@ -1,19 +1,21 @@
 //
-//  GLBoxWithPanelRenderer.swift
+//  GLBoxPostProcessingRenderer.swift
 //  OpenGLExample
 //
-//  Created by Vladislav Yandola on 23.10.2022.
+//  Created by Vladislav Yandola on 20.10.2022.
 //
 
 import GLKit
 
-class BoxWithPanelRenderer: GLRenderer {
+class BoxPostProcessingRenderer: GLRenderer {
   private let postProcessingProgram: GLProgram
   private let postProcessingMesh: GLMesh
 
   private var time: Float = 0
+  private var sensitivity: Float = 1 / 500
+  private let sensitivityCoef: Float = 10
   private var frameBuffer: GLuint = 0
-  private var texColorBuffer: GLuint = 0
+  private var textureColorBuffer: GLuint = 0
   private var rboDepthStencil: GLuint = 0
 
   init(
@@ -30,7 +32,7 @@ class BoxWithPanelRenderer: GLRenderer {
   deinit {
     glDeleteFramebuffers(1, &frameBuffer)
     glDeleteRenderbuffers(1, &rboDepthStencil)
-    glDeleteTextures(1, [texColorBuffer])
+    glDeleteTextures(1, [textureColorBuffer])
   }
 
   override func setup() {
@@ -38,14 +40,16 @@ class BoxWithPanelRenderer: GLRenderer {
     postProcessingProgram.setup(attributes: postProcessingMesh.descriptor.attrubutes)
     postProcessingMesh.setup()
 
+    delegate?.setInitialSensitivitySliderValue(sensitivity * sensitivityCoef)
+
     // Create framebuffer
     glGenFramebuffers(1, &frameBuffer)
     glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
 
     // Create texture to hold color buffer
-    glGenTextures(1, &texColorBuffer)
+    glGenTextures(1, &textureColorBuffer)
     glActiveTexture(GLenum(GL_TEXTURE0))
-    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffer)
+    glBindTexture(GLenum(GL_TEXTURE_2D), textureColorBuffer)
 
     let width = Int32(UIScreen.main.bounds.width * UIScreen.main.scale)
     let height = Int32(UIScreen.main.bounds.height * UIScreen.main.scale)
@@ -54,7 +58,7 @@ class BoxWithPanelRenderer: GLRenderer {
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR)
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
 
-    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffer, 0)
+    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), textureColorBuffer, 0)
 
     // Create Renderbuffer Object to hold depth and stencil buffers
     glGenRenderbuffers(1, &rboDepthStencil)
@@ -66,66 +70,50 @@ class BoxWithPanelRenderer: GLRenderer {
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
     time += 1
 
-    let mirrorView = GLKMatrix4(eye: [0, 2.5, 0.5], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
-    let normalView = GLKMatrix4(eye: [1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
-    let proj = GLKMatrix4(
-      projectionFov: .pi / 2,
-      near: 1,
-      far: 10,
-      aspect: Float(controller.view.bounds.width / controller.view.bounds.height)
-    )
-
     glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
-    glClearColor(1.0, 1.0, 1.0, 1.0)
-    glEnable(GLenum(GL_DEPTH_TEST))
-    glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
     program.prepareToDraw()
     mesh.prepareToDraw()
-    drawBox(view: mirrorView, proj: proj)
+    drawBox(containerSize: controller.view.bounds.size)
 
     delegate?.bindDrawableFramebuffer()
-    glClearColor(0.25, 0.25, 0.25, 1.0)
-    glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
     postProcessingProgram.prepareToDraw()
     postProcessingMesh.prepareToDraw()
-    drawPanel(view: normalView, proj: proj)
 
-    program.prepareToDraw()
-    mesh.prepareToDraw()
-    drawBox(view: normalView, proj: proj)
-
-    glDisable(GLenum(GL_DEPTH_TEST))
-  }
-
-  private func drawPanel(view: GLKMatrix4, proj: GLKMatrix4) {
-    let model = GLKMatrix4.identity.rotate(rotationX: .pi / 2).translate(translation: [0, 2.5, 0])
-    model.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
-    }
-
-    view.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.viewMatrix.rawValue), 1, 0, $0)
-    }
-
-    proj.glFloatPointer {
-      glUniformMatrix4fv(glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.projectionMatrix.rawValue), 1, 0, $0)
-    }
+    glUniform1f(
+      glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.sensitivity.rawValue),
+      sensitivity
+    )
+    glUniform1f(
+      glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.screenAspectRatio.rawValue),
+      GLfloat(controller.view.bounds.width / controller.view.bounds.height)
+    )
+    
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
   }
 
-  private func drawBox(view: GLKMatrix4, proj: GLKMatrix4) {
-    let colorLoc = glGetUniformLocation(program.glProgram, GLShaderUniform.overrideColor.rawValue)
-    glUniform3f(colorLoc, 1.0, 1.0, 1.0)
+  private func drawBox(containerSize: CGSize) {
+    glEnable(GLenum(GL_DEPTH_TEST))
+    glClearColor(0.25, 0.25, 0.25, 1.0)
+    glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
+
+    glUniform3f(glGetUniformLocation(program.glProgram, GLShaderUniform.overrideColor.rawValue), 1.0, 1.0, 1.0)
 
     var model = GLKMatrix4.identity.rotate(rotationZ: time / 60)
     model.glFloatPointer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
     }
 
+    let view = GLKMatrix4(eye: [-1.8, -1.8, 1.8], center: [0.0, 0.0, 0.0], up: [0.0, 0.0, 1.0])
     view.glFloatPointer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.viewMatrix.rawValue), 1, 0, $0)
     }
 
+    let proj = GLKMatrix4(
+      projectionFov: .pi / 2,
+      near: 1,
+      far: 10,
+      aspect: Float(containerSize.width / containerSize.height)
+    )
     proj.glFloatPointer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.projectionMatrix.rawValue), 1, 0, $0)
     }
@@ -152,9 +140,14 @@ class BoxWithPanelRenderer: GLRenderer {
       glUniformMatrix4fv(glGetUniformLocation(program.glProgram, GLShaderUniform.modelMatrix.rawValue), 1, 0, $0)
     }
 
-    glUniform3f(colorLoc, 0.3, 0.3, 0.3)
+    glUniform3f(glGetUniformLocation(program.glProgram, GLShaderUniform.overrideColor.rawValue), 0.3, 0.3, 0.3)
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
 
     glDisable(GLenum(GL_STENCIL_TEST))
+    glDisable(GLenum(GL_DEPTH_TEST))
+  }
+
+  override func changeSensitivity(_ sensitivity: Float) {
+    self.sensitivity = sensitivity / sensitivityCoef
   }
 }

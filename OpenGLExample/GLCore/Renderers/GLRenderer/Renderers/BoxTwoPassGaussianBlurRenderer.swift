@@ -1,19 +1,21 @@
 //
-//  GLBoxPostProcessingRenderer.swift
+//  GLBoxTwoPassGaussianBlurRenderer.swift
 //  OpenGLExample
 //
-//  Created by Vladislav Yandola on 20.10.2022.
+//  Created by Vladislav Yandola on 23.10.2022.
 //
 
 import GLKit
 
-class BoxPostProcessingRenderer: GLRenderer {
+class BoxTwoPassGaussianBlurRenderer: GLRenderer {
   private let postProcessingProgram: GLProgram
   private let postProcessingMesh: GLMesh
 
   private var time: Float = 0
-  private var frameBuffer: GLuint = 0
-  private var textureColorBuffer: GLuint = 0
+  private var sensitivity: Float = 1 / 100
+  private let sensitivityCoef: Float = 10
+  private var frameBuffers: [GLuint] = [0, 0]
+  private var texColorBuffers: [GLuint] = [0, 0]
   private var rboDepthStencil: GLuint = 0
 
   init(
@@ -28,9 +30,9 @@ class BoxPostProcessingRenderer: GLRenderer {
   }
 
   deinit {
-    glDeleteFramebuffers(1, &frameBuffer)
+    glDeleteFramebuffers(2, &frameBuffers)
     glDeleteRenderbuffers(1, &rboDepthStencil)
-    glDeleteTextures(1, [textureColorBuffer])
+    glDeleteTextures(2, &texColorBuffers)
   }
 
   override func setup() {
@@ -38,25 +40,39 @@ class BoxPostProcessingRenderer: GLRenderer {
     postProcessingProgram.setup(attributes: postProcessingMesh.descriptor.attrubutes)
     postProcessingMesh.setup()
 
+    delegate?.setInitialSensitivitySliderValue(sensitivity * sensitivityCoef)
+
     // Create framebuffer
-    glGenFramebuffers(1, &frameBuffer)
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
+    glGenFramebuffers(2, &frameBuffers)
 
     // Create texture to hold color buffer
-    glGenTextures(1, &textureColorBuffer)
-    glActiveTexture(GLenum(GL_TEXTURE0))
-    glBindTexture(GLenum(GL_TEXTURE_2D), textureColorBuffer)
+    glGenTextures(2, &texColorBuffers)
 
     let width = Int32(UIScreen.main.bounds.width * UIScreen.main.scale)
     let height = Int32(UIScreen.main.bounds.height * UIScreen.main.scale)
-    glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB, width, height, 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), nil)
 
+    // Set up the first framebuffer's color buffer
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
+    glActiveTexture(GLenum(GL_TEXTURE0))
+    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[0])
+
+    glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB, width, height, 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), nil)
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR)
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
+    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffers[0], 0)
 
-    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), textureColorBuffer, 0)
+    // Set up the second framebuffer's color buffer
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[1])
+    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[1])
 
-    // Create Renderbuffer Object to hold depth and stencil buffers
+    glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB, width, height, 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), nil)
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR)
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
+    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texColorBuffers[1], 0)
+
+    // Create first Renderbuffer Object to hold depth and stencil buffers
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
+
     glGenRenderbuffers(1, &rboDepthStencil)
     glBindRenderbuffer(GLenum(GL_RENDERBUFFER), rboDepthStencil)
     glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH24_STENCIL8), width, height)
@@ -66,14 +82,25 @@ class BoxPostProcessingRenderer: GLRenderer {
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
     time += 1
 
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[0])
     program.prepareToDraw()
     mesh.prepareToDraw()
     drawBox(containerSize: controller.view.bounds.size)
 
-    delegate?.bindDrawableFramebuffer()
+    let textureOffsetUniform = glGetUniformLocation(postProcessingProgram.glProgram, GLShaderUniform.textureOffset.rawValue)
+
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffers[1])
+    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[0])
     postProcessingProgram.prepareToDraw()
     postProcessingMesh.prepareToDraw()
+    glUniform2f(textureOffsetUniform, sensitivity, 0.0)
+    glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
+
+    delegate?.bindDrawableFramebuffer()
+    glBindTexture(GLenum(GL_TEXTURE_2D), texColorBuffers[1])
+    postProcessingProgram.prepareToDraw()
+    postProcessingMesh.prepareToDraw()
+    glUniform2f(textureOffsetUniform, 0.0, sensitivity * Float(controller.view.bounds.width / controller.view.bounds.height))
     glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
   }
 
@@ -133,4 +160,9 @@ class BoxPostProcessingRenderer: GLRenderer {
     glDisable(GLenum(GL_STENCIL_TEST))
     glDisable(GLenum(GL_DEPTH_TEST))
   }
+
+  override func changeSensitivity(_ sensitivity: Float) {
+    self.sensitivity = sensitivity / sensitivityCoef
+  }
 }
+

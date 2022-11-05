@@ -33,10 +33,22 @@ class GLViewController: GLKViewController {
     return button
   }()
 
+  private lazy var sensitivitySlider: UISlider = {
+    let slider = UISlider()
+    slider.isHidden = true
+    slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+    slider.translatesAutoresizingMaskIntoConstraints = false
+    return slider
+  }()
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupGL()
     setupSubviews()
+  }
+
+  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    renderer?.orientationChanged(UIDevice.current.orientation.isPortrait)
   }
 
   private func setupGL() {
@@ -60,18 +72,24 @@ class GLViewController: GLKViewController {
     renderer?.setup()
 
     imagePickerButton.isHidden = !rendererModel.isImagePickerAvailable
+    sensitivitySlider.isHidden = !rendererModel.isSensitivitySliderAvailable
   }
 
   private func setupSubviews() {
     view.addSubview(settingsButton)
     view.addSubview(imagePickerButton)
+    view.addSubview(sensitivitySlider)
 
     NSLayoutConstraint.activate([
       settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
       settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
 
       imagePickerButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
-      imagePickerButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24)
+      imagePickerButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+
+      sensitivitySlider.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
+      sensitivitySlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+      sensitivitySlider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
     ])
   }
 
@@ -91,6 +109,10 @@ class GLViewController: GLKViewController {
     let pickerController = PHPickerViewController(configuration: config)
     pickerController.delegate = self
     present(pickerController, animated: true)
+  }
+
+  @objc private func sliderValueChanged(_ slider: UISlider) {
+    renderer?.changeSensitivity(slider.value)
   }
 
   // MARK: - Gestures
@@ -113,6 +135,10 @@ class GLViewController: GLKViewController {
 extension GLViewController: GLRendererDelegate {
   func bindDrawableFramebuffer() {
     (view as? GLKView)?.bindDrawable()
+  }
+
+  func setInitialSensitivitySliderValue(_ value: Float) {
+    sensitivitySlider.value = value
   }
 }
 

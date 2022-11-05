@@ -7,10 +7,6 @@
 
 import GLKit
 
-protocol GLRendererDelegate: AnyObject {
-  func bindDrawableFramebuffer()
-}
-
 class GLRenderer: NSObject, GLKViewControllerDelegate {
   private(set) var program: GLProgram
   private(set) var mesh: GLMesh
@@ -48,4 +44,6 @@ class GLRenderer: NSObject, GLKViewControllerDelegate {
   func touchesMoved(_ touches: Set<UITouch>, in view: UIView) {}
   func touchesEnded(_ touches: Set<UITouch>, in view: UIView) {}
   func changeTextures(_ textures: [GLTexture]) {}
+  func changeSensitivity(_ sensitivity: Float) {}
+  func orientationChanged(_ isPortrait: Bool) {}
 }
