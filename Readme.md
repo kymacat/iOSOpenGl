@@ -30,9 +30,9 @@ The simplest renderer. Takes 2D points and draws them
 
 Able to draw a texture from an image (you can choose from a photo gallery). The vertexShader (TextureVertex.glsl) uses several attributes (position, texture coordinates). The shader also contains the logic of texture rotation using the transformation matrix and adapting the aspect ratio. To transfer the texture to OpenGL, the GLTexture class is used, which can convert a UIImage to a bitmap
 
-| Texture                                                                     |
-|:---------------------------------------------------------------------------:|
-| <img src="./Resources/textureRenderer.png" width="200" data-align="center"> |
+| Texture                                                                      |
+|:----------------------------------------------------------------------------:|
+| <img src="./Resources/textureRenderer.jpeg" width="200" data-align="center"> |
 
 ##### Texture in 3D
 
