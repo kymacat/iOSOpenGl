@@ -30,18 +30,19 @@ class BoxTwoPassGaussianBlurRenderer: GLRenderer {
   }
 
   deinit {
-    glDeleteFramebuffers(2, &frameBuffers)
-    glDeleteRenderbuffers(1, &rboDepthStencil)
-    glDeleteTextures(2, &texColorBuffers)
+    clearBuffers()
   }
 
   override func setup() {
     super.setup()
     postProcessingProgram.setup(attributes: postProcessingMesh.descriptor.attrubutes)
     postProcessingMesh.setup()
+    setupBuffers()
 
     delegate?.setInitialSensitivitySliderValue(sensitivity * sensitivityCoef)
+  }
 
+  private func setupBuffers() {
     // Create framebuffer
     glGenFramebuffers(2, &frameBuffers)
 
@@ -77,6 +78,12 @@ class BoxTwoPassGaussianBlurRenderer: GLRenderer {
     glBindRenderbuffer(GLenum(GL_RENDERBUFFER), rboDepthStencil)
     glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH24_STENCIL8), width, height)
     glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_DEPTH_STENCIL_ATTACHMENT), GLenum(GL_RENDERBUFFER), rboDepthStencil)
+  }
+
+  private func clearBuffers() {
+    glDeleteFramebuffers(2, &frameBuffers)
+    glDeleteRenderbuffers(1, &rboDepthStencil)
+    glDeleteTextures(2, &texColorBuffers)
   }
 
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
@@ -163,6 +170,11 @@ class BoxTwoPassGaussianBlurRenderer: GLRenderer {
 
   override func changeSensitivity(_ sensitivity: Float) {
     self.sensitivity = sensitivity / sensitivityCoef
+  }
+
+  override func orientationChanged(_ isPortrait: Bool) {
+    clearBuffers()
+    setupBuffers()
   }
 }
 

@@ -30,18 +30,19 @@ class BoxPostProcessingRenderer: GLRenderer {
   }
 
   deinit {
-    glDeleteFramebuffers(1, &frameBuffer)
-    glDeleteRenderbuffers(1, &rboDepthStencil)
-    glDeleteTextures(1, [textureColorBuffer])
+    clearBuffers()
   }
 
   override func setup() {
     super.setup()
     postProcessingProgram.setup(attributes: postProcessingMesh.descriptor.attrubutes)
     postProcessingMesh.setup()
+    generateBuffers()
 
     delegate?.setInitialSensitivitySliderValue(sensitivity * sensitivityCoef)
+  }
 
+  private func generateBuffers() {
     // Create framebuffer
     glGenFramebuffers(1, &frameBuffer)
     glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
@@ -65,6 +66,12 @@ class BoxPostProcessingRenderer: GLRenderer {
     glBindRenderbuffer(GLenum(GL_RENDERBUFFER), rboDepthStencil)
     glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH24_STENCIL8), width, height)
     glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_DEPTH_STENCIL_ATTACHMENT), GLenum(GL_RENDERBUFFER), rboDepthStencil)
+  }
+
+  private func clearBuffers() {
+    glDeleteFramebuffers(1, &frameBuffer)
+    glDeleteRenderbuffers(1, &rboDepthStencil)
+    glDeleteTextures(1, [textureColorBuffer])
   }
 
   override func glkViewControllerUpdate(_ controller: GLKViewController) {
@@ -149,5 +156,10 @@ class BoxPostProcessingRenderer: GLRenderer {
 
   override func changeSensitivity(_ sensitivity: Float) {
     self.sensitivity = sensitivity / sensitivityCoef
+  }
+
+  override func orientationChanged(_ isPortrait: Bool) {
+    clearBuffers()
+    generateBuffers()
   }
 }
