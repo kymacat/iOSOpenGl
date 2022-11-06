@@ -54,6 +54,7 @@ class GLViewController: GLKViewController {
   private func setupGL() {
     context = EAGLContext(api: .openGLES3)
     EAGLContext.setCurrent(context)
+    preferredFramesPerSecond = 30
 
     if let view = self.view as? GLKView, let context = context {
       view.context = context

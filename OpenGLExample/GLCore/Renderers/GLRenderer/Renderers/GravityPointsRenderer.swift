@@ -30,7 +30,7 @@ class GravityPointsRenderer: GLRenderer {
     glUniform1f(glGetUniformLocation(program.glProgram, GLShaderUniform.gravity.rawValue), 1.5)
     glUniform1f(glGetUniformLocation(program.glProgram, GLShaderUniform.speed.rawValue), 0.033)
 
-    var currPosition: float2 = [.infinity, .infinity]
+    var currPosition: float2 = [10, 10]
     if let fingerPosition = fingerPosition {
       currPosition = [
         (fingerPosition.x / GLfloat(controller.view.bounds.width) - 0.5) * 2,
